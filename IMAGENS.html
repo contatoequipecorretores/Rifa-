@@ -1,0 +1,141 @@
+<!-- 
+    ARQUIVO DE REFERÊNCIA PARA IMAGENS
+    
+    Se não tiver uma imagem real ainda, use as opções abaixo:
+-->
+
+<!-- OPÇÃO 1: Usar a imagem online placeholder (padrão atual) -->
+<img src="https://via.placeholder.com/300x300/FF6B6B/FFFFFF?text=Lavadora+Newmaq+10Kg" alt="Lavadora Tanquinho">
+
+
+<!-- OPÇÃO 2: Upload sua imagem local -->
+<!-- 
+    1. Salve a imagem na mesma pasta que o index.html
+    2. Nomeie como: lavadora.jpg (ou outro nome)
+    3. Use no index.html:
+-->
+<img src="lavadora.jpg" alt="Lavadora Tanquinho">
+
+
+<!-- OPÇÃO 3: Usar imagem de URL externo -->
+<!-- 
+    Cole aqui o link direto de uma imagem da web:
+    Exemplos de sites com imagens:
+    - Google Imagens: images.google.com
+    - Unsplash: unsplash.com (imagens grátis)
+    - Pexels: pexels.com (imagens grátis)
+    - Pixabay: pixabay.com (imagens grátis)
+-->
+<img src="https://sua-url-de-imagem.com/imagem.jpg" alt="Lavadora Tanquinho">
+
+
+<!-- OPÇÃO 4: Data URI (base64 inline) - Para exemplo apenas -->
+<!--
+    Se quiser embutir a imagem direto no HTML:
+    <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgA..." alt="Lavadora Tanquinho">
+    
+    Para converter uma imagem para base64:
+    1. Acesse: https://convertio.co/jpg-base64/
+    2. Faça upload da imagem
+    3. Copie o base64 gerado
+    4. Cole no src acima
+-->
+
+
+<!-- DICAS PARA IMAGEM PERFEITA -->
+
+1. Tamanho ideal: 300x300 pixels
+2. Formato: JPG ou PNG
+3. Peso: máximo 1MB (idealmente 100-300KB)
+4. Resolver: mínimo 1200x1200 pixels
+5. Cores vibrantes para chamar atenção
+6. Fundo branco ou transparente
+
+
+<!-- FERRAMENTAS PARA EDITAR/CONVERTER IMAGENS -->
+
+✓ Compressar:      https://tinypng.com
+✓ Converter:       https://convertio.co
+✓ Editar online:   https://canva.com
+✓ Redimensionar:   https://pixlr.com
+✓ Otimizar:        https://imageoptim.com
+
+
+<!-- ONDE ENCONTRAR IMAGENS DE LAVADORA -->
+
+Procure por "Newmaq tanquinho 10kg" em:
+- Google Imagens
+- Mercado Livre
+- OLX
+- Sites de vendas
+- Fotos pessoais (se você tiver o produto)
+
+
+<!-- COMO ADICIONAR NO SEU PROJETO -->
+
+MÉTODO 1 (Recomendado):
+─────────────────────
+1. Salve a imagem em: /workspaces/Rifa-/lavadora.jpg
+2. Em index.html, linha ~35, mude:
+   DE: <img src="https://via.placeholder..." 
+   PARA: <img src="lavadora.jpg"
+
+MÉTODO 2:
+─────────
+1. Hospede a imagem em um serviço grátis:
+   - Imgur.com
+   - Imgur-clone
+   - Any image hosting
+2. Copie o link direto
+3. Cole no src do index.html
+
+
+<!-- MARKDOWN PARA COMUNICAÇÃO -->
+
+Se quiser compartilhar na web:
+
+![Lavadora Newmaq 10Kg](lavadora.jpg)
+
+OU em HTML puro:
+
+<picture>
+  <source media="(max-width: 768px)" srcset="lavadora-mobile.jpg">
+  <img src="lavadora.jpg" alt="Lavadora Tanquinho Newmaq 10Kg">
+</picture>
+
+
+<!-- EXEMPLO COMPLETO DE COMO USAR -->
+
+No index.html, localize (~linha 35):
+
+<div class="prize-image">
+    <img src="https://via.placeholder.com/300x300/FF6B6B/FFFFFF?text=Lavadora+Newmaq+10Kg" alt="Lavadora Tanquinho">
+</div>
+
+E mude para:
+
+<div class="prize-image">
+    <img src="lavadora.jpg" alt="Lavadora Tanquinho Newmaq 10Kg">
+</div>
+
+Pronto! A imagem será exibida.
+
+
+<!-- TESTE -->
+
+Após adicionar a imagem:
+1. Abra index.html no navegador
+2. Verifique se a imagem aparece
+3. Se não aparecer, verifique:
+   - O nome do arquivo está correto?
+   - O arquivo está na mesma pasta do index.html?
+   - Há permissões de leitura no arquivo?
+   - Sem typos no nome
+
+
+💡 TIP: Se usar arquivo local, o site funcionará:
+   - ✓ Localmente (arquivo:// no navegador)
+   - ✓ No Netlify (após upload)
+   - Precisa dos arquivos juntos na pasta
+
+BOA SORTE! 🍀

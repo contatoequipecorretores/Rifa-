@@ -1,0 +1,282 @@
+╔════════════════════════════════════════════════════════════════╗
+║                                                                ║
+║          🎰 RIFA LAVADORA NEWMAQ 10KG - ÍNDICE 🎰            ║
+║                                                                ║
+║              📚 GUIA COMPLETO DE ARQUIVOS 📚                  ║
+║                                                                ║
+╚════════════════════════════════════════════════════════════════╝
+
+
+🔴 ARQUIVOS PRINCIPAIS (ESSENCIAIS)
+═════════════════════════════════════════════════════════════════
+
+1️⃣  index.html
+    → Arquivo principal da rifa
+    → Abra este no navegador para usar
+    → Contém toda a interface
+    → ⚡ COMECE POR AQUI!
+
+2️⃣  style.css
+    → Design e layout visual
+    → Cores, animações, responsividade
+    → Altere aqui para customizar cores
+
+3️⃣  script.js
+    → Lógica da rifa
+    → Carrinho, checkout, localStorage
+    → Altere aqui para mudar preço/números
+
+
+🟡 DOCUMENTAÇÃO (LEIA PRIMEIRO)
+═════════════════════════════════════════════════════════════════
+
+📖 README.md
+   Leia para: Informações gerais do projeto
+   Tempo: 5 minutos
+   Conteúdo: O que é, como funciona, features
+
+📖 QUICK_START.txt
+   Leia para: Publicar em Netlify rapidinho
+   Tempo: 2 minutos
+   Conteúdo: 5 passos para ir ao ar
+
+📖 RESUMO.txt
+   Leia para: Visão geral completa
+   Tempo: 10 minutos
+   Conteúdo: Tudo que precisa saber
+
+
+🟢 GUIAS DE USO
+═════════════════════════════════════════════════════════════════
+
+📱 guia.html
+   Leia para: Tutorial visual passo a passo
+   Abra em: Navegador (double-click)
+   Conteúdo: Como comprar, admin tools, troubleshooting
+
+📋 CHECKLIST.txt
+   Leia para: Validar se está tudo pronto
+   Conteúdo: Checklist antes de publicar
+
+
+🔵 PERSONALIZAÇÕES
+═════════════════════════════════════════════════════════════════
+
+⚙️  CUSTOMIZAR.txt
+    Leia para: Como alterar preço, cores, imagem, etc
+    Conteúdo: Passo a passo de cada customização
+
+📷 IMAGENS.html
+    Leia para: Como adicionar imagem real
+    Conteúdo: Opções para adicionar imagem
+
+
+🟣 INTEGRAÇÕES (AVANÇADO)
+═════════════════════════════════════════════════════════════════
+
+🔌 INTEGRACOES.md
+    Leia para: PIX, WhatsApp, Email, Backend
+    Conteúdo: Como escalar para produção
+
+
+⚪ CONFIGURAÇÃO
+═════════════════════════════════════════════════════════════════
+
+📦 package.json
+   Informações do projeto (npm)
+   Use se integrar com Node.js
+
+🌐 netlify.toml
+   Configuração para Netlify
+   Necessário para deploy
+
+📂 .gitignore
+   Arquivos ignorados pelo Git
+   Use se usar controle de versão
+
+
+═══════════════════════════════════════════════════════════════════
+
+🚀 FLUXO RECOMENDADO DE LEITURA
+═════════════════════════════════════════════════════════════════
+
+Para iniciantes:
+1. Abra index.html no navegador
+2. Teste a interface
+3. Leia QUICK_START.txt
+4. Publique no Netlify
+
+Para customizar:
+1. Leia CUSTOMIZAR.txt
+2. Altere style.css (cores) ou script.js (preço)
+3. Teste localmente (F5)
+4. Se OK, publique
+
+
+Para funcionalidades avançadas:
+1. Leia INTEGRACOES.md
+2. Escolha a integração desejada
+3. Siga o guia de implementação
+4. Teste tudo antes de publicar
+
+
+═══════════════════════════════════════════════════════════════════
+
+⏱️  QUANTO TEMPO LEVA?
+═════════════════════════════════════════════════════════════════
+
+⏰ Testar localmente:           5 minutos
+⏰ Adicionar imagem:             5 minutos
+⏰ Customizar cores:            10 minutos
+⏰ Publicar no Netlify:         5 minutos
+⏰ Compartilhar e começar:      Imediato
+
+TOTAL: ~30 minutos para ir ao ar! ⚡
+
+
+═══════════════════════════════════════════════════════════════════
+
+🎯 METAS DIÁRIAS
+═════════════════════════════════════════════════════════════════
+
+HOJE:
+☐ Ler este índice (2 min)
+☐ Abrir index.html (1 min)
+☐ Testar a rifa (5 min)
+☐ Ler QUICK_START.txt (2 min)
+Total: ~10 minutos ✓
+
+AMANHÃ:
+☐ Adicionar imagem (5 min)
+☐ Leia CUSTOMIZAR.txt (5 min)
+☐ Customize cores/preço (10 min)
+☐ Publique no Netlify (5 min)
+Total: ~25 minutos ✓
+
+DEPOIS:
+☐ Compartilhe em 10 grupos
+☐ Acompanhe vendas
+☐ Responda clientes
+☐ Faça backup diário
+
+
+═══════════════════════════════════════════════════════════════════
+
+❓ DÚVIDAS FREQUENTES - QUAL ARQUIVO LER?
+═════════════════════════════════════════════════════════════════
+
+"Como começo?"
+→ QUICK_START.txt
+
+"Como altero preço?"
+→ CUSTOMIZAR.txt
+
+"Como adiciono imagem?"
+→ IMAGENS.html ou CUSTOMIZAR.txt
+
+"Como publico?"
+→ QUICK_START.txt ou README.md
+
+"Como mudo cores?"
+→ CUSTOMIZAR.txt
+
+"Como integro PIX?"
+→ INTEGRACOES.md
+
+"Tem algum problema?"
+→ Leia guia.html (troubleshooting)
+
+"Não entendi nada"
+→ guia.html (tutorial visual)
+
+
+═══════════════════════════════════════════════════════════════════
+
+📊 ESTRUTURA DO PROJETO
+═════════════════════════════════════════════════════════════════
+
+Rifa-/
+├── 🎯 INÍCIO
+│   ├── INDICE.txt (este arquivo)
+│   ├── RESUMO.txt
+│   └── QUICK_START.txt
+│
+├── 💻 CÓDIGO (essencial)
+│   ├── index.html (interface)
+│   ├── style.css (design)
+│   └── script.js (lógica)
+│
+├── 📖 DOCUMENTAÇÃO
+│   ├── README.md
+│   ├── guia.html
+│   ├── CHECKLIST.txt
+│   └── CUSTOMIZAR.txt
+│
+├── 🔌 INTEGRAÇÕES
+│   ├── INTEGRACOES.md
+│   └── IMAGENS.html
+│
+└── ⚙️ CONFIGURAÇÃO
+    ├── netlify.toml
+    ├── package.json
+    └── .gitignore
+
+
+═══════════════════════════════════════════════════════════════════
+
+✅ CHECKLIST DE LEITURA
+═════════════════════════════════════════════════════════════════
+
+Necessário ler antes de publicar:
+☐ Este arquivo (INDICE.txt)
+☐ QUICK_START.txt
+☐ CHECKLIST.txt
+
+Recomendado ler:
+☐ README.md
+☐ CUSTOMIZAR.txt
+☐ guia.html
+
+Se for customizar:
+☐ CUSTOMIZAR.txt
+☐ IMAGENS.html
+
+Se for escalar:
+☐ INTEGRACOES.md
+
+
+═══════════════════════════════════════════════════════════════════
+
+🎓 RECURSOS EXTERNOS
+═════════════════════════════════════════════════════════════════
+
+Netlify:       https://app.netlify.com
+GitHub:        https://github.com
+MDN Docs:      https://developer.mozilla.org
+Stack Overflow: https://stackoverflow.com
+
+
+═══════════════════════════════════════════════════════════════════
+
+🎉 PRONTO PARA COMEÇAR?
+═════════════════════════════════════════════════════════════════
+
+1. Abra este arquivo (você está aqui!) ✓
+2. Abra index.html no navegador
+3. Teste a rifa clicando em números
+4. Leia QUICK_START.txt
+5. Publique no Netlify
+6. Compartilhe com seus contatos
+7. Acompanhe as vendas em tempo real
+
+BOA SORTE! 🍀🚀
+
+═══════════════════════════════════════════════════════════════════
+
+Desenvolvido com ❤️ para você rifar com sucesso!
+
+Dúvidas? Consulte os arquivos ou releia este índice.
+
+VAMOS LÁ! 💪
+
+═══════════════════════════════════════════════════════════════════

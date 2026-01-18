@@ -1,0 +1,133 @@
+🚀 QUICK START - PUBLICAR EM 5 MINUTOS
+====================================
+
+## Opção 1: Netlify (RECOMENDADO)
+
+### Passo a Passo:
+
+1️⃣ Abra https://app.netlify.com
+2️⃣ Clique em "Add new project" → "Deploy manually"
+3️⃣ Arraste a pasta "Rifa-" para a área
+4️⃣ Aguarde o upload (30-60 segundos)
+5️⃣ Copie o link gerado (será algo como: seu-site-123456.netlify.app)
+6️⃣ Compartilhe nos grupos de WhatsApp/Instagram!
+
+✓ Pronto! Seu site está online!
+
+
+## Opção 2: GitHub + Netlify (AUTOMÁTICO)
+
+1️⃣ Faça push do projeto para GitHub
+2️⃣ Conecte seu repositório no Netlify
+3️⃣ Netlify fará deploy automaticamente
+4️⃣ Cada mudança que você fizer, o site atualiza sozinho
+
+
+## Opção 3: Vercel
+
+1️⃣ Acesse https://vercel.com
+2️⃣ Clique em "New Project"
+3️⃣ Selecione seu repositório GitHub
+4️⃣ Clique em "Deploy"
+
+✓ Pronto!
+
+
+## TESTE LOCALMENTE PRIMEIRO:
+
+1️⃣ Abra o arquivo "index.html" no seu navegador
+2️⃣ Clique em alguns números para testar
+3️⃣ Verifique se está funcionando bem no seu celular também
+4️⃣ Pressione Ctrl+Shift+R para abrir o console e testar admin tools
+
+
+## CUSTOMIZAÇÕES RÁPIDAS:
+
+Antes de publicar, considere:
+
+✓ Adicionar imagem real da lavadora
+  - Salve a imagem como "lavadora.jpg" na pasta
+  - Em index.html, mude: src="https://via.placeholder..." para src="lavadora.jpg"
+
+✓ Alterar cores (opcional)
+  - Em style.css, procure :root e mude os códigos HEX
+
+✓ Verificar preço
+  - Em script.js, verifique se ticketPrice está em 15
+
+✓ Adicionar seu WhatsApp no footer
+  - Em index.html, adicione seu número
+
+
+## APÓS PUBLICAR:
+
+1. Compartilhe o link em:
+   ✓ Grupos de WhatsApp
+   ✓ Instagram/Facebook
+   ✓ Email para contatos
+   ✓ Seu site pessoal
+
+2. Monitore as vendas:
+   ✓ Abra o site regularmente
+   ✓ Pressione Ctrl+Shift+R para ver relatório
+   ✓ Pressione Ctrl+Shift+E para fazer backup
+
+3. Responda clientes via WhatsApp rapidamente
+
+
+## LINKS ÚTEIS:
+
+🌐 Netlify: https://app.netlify.com
+🌐 GitHub: https://github.com
+🌐 Vercel: https://vercel.com
+📚 Documentação: README.md
+📖 Tutorial Detalhado: guia.html
+⚙️ Customizações: CUSTOMIZAR.txt
+🔌 Integrações: INTEGRACOES.md
+
+
+## DÚVIDAS FREQUENTES:
+
+❓ Quanto custa?
+✓ Netlify gratuito até ~500MB/mês
+
+❓ Meus dados são perdidos?
+✓ Não! São salvos em localStorage do navegador
+
+❓ Posso fazer backup?
+✓ Sim! Pressione Ctrl+Shift+E
+
+❓ Posso mudar o preço depois?
+✓ Sim! Altere em script.js e faça novo deploy
+
+❓ Como receber o pagamento?
+✓ Compartilhe seu PIX ou número WhatsApp com clientes
+
+
+## CHECKLIST ANTES DE PUBLICAR:
+
+☐ Imagem da lavadora adicionada
+☐ Preço correto (R$ 15)
+☐ Quantidade certa (100 números)
+☐ Testado no celular
+☐ Cores do seu agrado
+☐ PIX/WhatsApp informações corretas
+☐ Netlify deploy funcionando
+
+
+## DEPOIS DE PUBLICAR:
+
+☐ Compartilhe em 5+ grupos
+☐ Responda dúvidas via WhatsApp
+☐ Acompanhe vendas em tempo real
+☐ Faça backup diário (Ctrl+Shift+E)
+☐ No final, faça sorteio ao vivo
+
+
+---
+
+🎉 SUCESSO! Sua rifa está no ar!
+
+Qualquer dúvida, consulte os arquivos README.md e guia.html
+
+Boa sorte! 🍀🚀

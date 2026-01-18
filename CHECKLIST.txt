@@ -1,0 +1,228 @@
+📋 CHECKLIST FINAL - ANTES DE PUBLICAR
+========================================
+
+
+✅ TESTE LOCAL
+──────────────────────────────────────────
+
+□ Abri index.html no navegador
+□ Consegui ver os 100 números
+□ Números mudam de cor ao clicar
+□ Cliquei em vários números
+□ O carrinho aparece e mostra os números
+□ Tentei remover um número (clicando novamente)
+□ Vi a barra de progresso atualizar
+□ Testei no celular (Chrome/Safari)
+□ O layout está responsivo no mobile
+□ Testei o checkout
+  □ Preenchi nome
+  □ Preenchi email
+  □ Preenchi telefone
+  □ Preenchi CPF (opcional)
+  □ Selecionei forma de pagamento
+  □ Cliquei em "Confirmar Compra"
+□ Vi a confirmação com ID de compra
+□ Os números ficaram marcados como vendidos
+
+
+✅ FUNCIONALIDADES AVANÇADAS
+──────────────────────────────────────────
+
+□ Testei desconto (3+ números = 5% off)
+□ Testei Ctrl+Shift+R (relatório no console)
+□ Testei Ctrl+Shift+E (download de backup)
+□ Recarreguei a página e os dados persistiram
+□ Atualizei em tempo real varias vezes
+□ Testei no Firefox/Safari/Chrome/Edge
+
+
+✅ CUSTOMIZAÇÕES
+──────────────────────────────────────────
+
+□ Adicionar imagem real? 
+  □ SIM - Imagem adicionada e funcionando
+  □ NÃO - OK, usar placeholder
+
+□ Alterar preço? (se não for 15)
+  □ SIM - Alterado em script.js
+  □ NÃO - OK, R$ 15,00
+
+□ Alterar cores?
+  □ SIM - Alterado em style.css
+  □ NÃO - OK, cores padrão
+
+□ Alterar título da rifa?
+  □ SIM - Alterado em index.html
+  □ NÃO - OK, "RIFA SOLIDÁRIA"
+
+□ Adicionar dados de contato?
+  □ SIM - Adicionado PIX/WhatsApp
+  □ NÃO - OK, clientes digitarão
+
+
+✅ ANTES DE PUBLICAR NO NETLIFY
+──────────────────────────────────────────
+
+□ Todos os arquivos estão na pasta Rifa-:
+  □ index.html
+  □ style.css
+  □ script.js
+  □ netlify.toml (importante!)
+  □ README.md
+  □ package.json
+
+□ Nenhum arquivo pessoal foi incluído
+
+□ Tudo foi testado localmente com sucesso
+
+□ Imagem (se adicionada) está na pasta
+
+
+✅ DEPLOY NO NETLIFY
+──────────────────────────────────────────
+
+□ Criei conta em https://app.netlify.com
+
+□ Fiz login com sucesso
+
+□ Cliquei em "Add new project" > "Deploy manually"
+
+□ Arrastei a pasta Rifa- para a área
+
+□ Netlify começou a fazer upload
+
+□ Aguardei ~30-60 segundos
+
+□ Site foi deployado com sucesso
+
+□ Recebi um link como: seu-site-123456.netlify.app
+
+□ Testei o link no navegador
+
+□ Testei o link no celular
+
+□ Tudo funciona no link publicado
+
+
+✅ APÓS PUBLICAÇÃO
+──────────────────────────────────────────
+
+□ Copiei o link gerado
+
+□ Testei o link novamente (para garantir)
+
+□ Compartilhei em grupo de WhatsApp
+
+□ Compartilhei no Instagram/Facebook
+
+□ Compartilhei por email
+
+□ Compartilhei com contatos diretos
+
+□ Adicionei o link na minha bio/descrição
+
+□ Criei uma imagem/card para compartilhar com o link
+
+
+✅ ACOMPANHAMENTO
+──────────────────────────────────────────
+
+□ Abro o site diariamente para acompanhar vendas
+
+□ Pressiono Ctrl+Shift+R para ver relatório
+
+□ Faço backup dos dados (Ctrl+Shift+E) regularmente
+
+□ Respondo clientes via WhatsApp rapidamente
+
+□ Atualizo meu status/story com novos números vendidos
+
+□ Monitoro o progresso da barra
+
+
+✅ PROBLEMAS ENCONTRADOS
+──────────────────────────────────────────
+
+Se encontrou algum problema, liste abaixo:
+
+Problema 1: ___________________________________
+Solução: ____________________________________
+
+Problema 2: ___________________________________
+Solução: ____________________________________
+
+Problema 3: ___________________________________
+Solução: ____________________________________
+
+
+✅ MÉTRICAS DE SUCESSO
+──────────────────────────────────────────
+
+Quando lançou: ____________________
+
+Primeiros compartilhamentos: ____________________
+
+Primeira compra realizada em: ____________________
+
+Números vendidos após 1 dia: ______ / 100
+
+Números vendidos após 1 semana: ______ / 100
+
+Total de receita esperada: R$ ________
+
+Total de receita real: R$ ________
+
+
+✅ MELHORIAS FUTURAS
+──────────────────────────────────────────
+
+□ Integrar PIX gateway
+
+□ Integrar WhatsApp API
+
+□ Adicionar sistema de email automático
+
+□ Criar dashboard admin
+
+□ Adicionar múltiplas rifas
+
+□ Criar banco de dados
+
+□ Migrar para backend
+
+
+✅ DOCUMENTAÇÃO
+──────────────────────────────────────────
+
+Leia se tiver dúvidas:
+
+□ README.md - Informações gerais
+□ guia.html - Tutorial passo a passo
+□ CUSTOMIZAR.txt - Como personalizar
+□ INTEGRACOES.md - APIs e pagamentos
+□ QUICK_START.txt - Deploy rápido
+□ RESUMO.txt - Este projeto em detalhes
+□ IMAGENS.html - Como adicionar imagens
+
+
+✅ CONTATOS IMPORTANTES
+──────────────────────────────────────────
+
+Meu PIX: _________________________________
+
+Meu WhatsApp: _________________________________
+
+Meu Email: _________________________________
+
+Meu Instagram: _________________________________
+
+Link da Rifa: _________________________________
+
+
+═══════════════════════════════════════════════
+
+🎉 SE CHEGOU AQUI, ESTÁ TUDO PRONTO!
+
+BOA SORTE COM SUA RIFA! 🍀🚀
+
+═══════════════════════════════════════════════

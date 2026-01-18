@@ -1,0 +1,215 @@
+📝 INSTRUÇÕES DE CUSTOMIZAÇÃO
+============================
+
+Bem-vindo! Aqui estão as instruções para personalizar sua rifa.
+
+### 1. ALTERAR IMAGEM DO PRODUTO
+
+No arquivo "index.html", procure por:
+
+    <img src="https://via.placeholder.com/300x300/FF6B6B/FFFFFF?text=Lavadora+Newmaq+10Kg" alt="Lavadora Tanquinho">
+
+Substitua por um link da sua imagem:
+
+    <img src="https://link-para-sua-imagem.com/lavadora.jpg" alt="Lavadora Tanquinho">
+
+OU upload a imagem na mesma pasta e use:
+
+    <img src="lavadora.jpg" alt="Lavadora Tanquinho">
+
+
+### 2. ALTERAR PREÇO POR NÚMERO
+
+No arquivo "script.js", procure por:
+
+    const config = {
+        totalTickets: 100,
+        ticketPrice: 15,  <--- ALTERE AQUI
+        // ...
+    };
+
+Mude "15" para o preço desejado.
+
+
+### 3. ALTERAR QUANTIDADE DE NÚMEROS
+
+No arquivo "script.js", procure por:
+
+    const config = {
+        totalTickets: 100,  <--- ALTERE AQUI
+        ticketPrice: 15,
+        // ...
+    };
+
+Mude "100" para o número desejado (ex: 50, 200, etc).
+
+
+### 4. ALTERAR DESCONTO
+
+No arquivo "script.js", procure por:
+
+    const config = {
+        totalTickets: 100,
+        ticketPrice: 15,
+        discountThreshold: 3,    <--- A PARTIR DE 3 NÚMEROS
+        discountPercent: 5       <--- 5% DE DESCONTO
+    };
+
+- discountThreshold: quantidade mínima de números para ativar o desconto
+- discountPercent: percentual do desconto
+
+
+### 5. ALTERAR CORES
+
+No arquivo "style.css", procure por:
+
+    :root {
+        --primary: #FF6B6B;      /* VERMELHO - cor principal */
+        --primary-dark: #E63946; /* VERMELHO ESCURO */
+        --secondary: #4ECDC4;    /* VERDE - cor secundária */
+        --accent: #FFD93D;       /* AMARELO - destaque */
+        // ...
+    }
+
+Altere os códigos HEX para suas cores preferidas:
+- Google "HTML color picker" para escolher cores
+- Copie o código HEX (ex: #FF6B6B)
+- Cole nos valores acima
+
+
+### 6. ALTERAR TÍTULO DA RIFA
+
+No arquivo "index.html", procure por:
+
+    <h1>🎰 RIFA SOLIDÁRIA</h1>
+    <p class="subtitle">Lavadora Tanquinho Newmaq 10Kg</p>
+
+Substitua pelos seus textos.
+
+
+### 7. ALTERAR DESCRIÇÃO DO PRODUTO
+
+No arquivo "index.html", procure por:
+
+    <p class="description">Lavadora de roupas semi-automática de alta performance</p>
+
+Substitua pela descrição do seu produto.
+
+
+### 8. ADICIONAR MAIS INFORMAÇÕES
+
+No arquivo "index.html", procure por:
+
+    <div class="stat">
+        <span class="stat-label">Capacidade</span>
+        <span class="stat-value">10 Kg</span>
+    </div>
+
+Você pode alterar ou duplicar para adicionar mais stats.
+
+
+### 9. ALTERAR FORMAS DE PAGAMENTO
+
+No arquivo "index.html", procure por:
+
+    <label class="payment-option">
+        <input type="radio" name="payment" value="pix" checked>
+        <span>💳 PIX</span>
+    </label>
+    <label class="payment-option">
+        <input type="radio" name="payment" value="whatsapp">
+        <span>💬 Acordar via WhatsApp</span>
+    </label>
+
+Você pode adicionar/remover opções conforme necessário.
+
+
+### 10. ADICIONAR SUAS REDES SOCIAIS
+
+No arquivo "index.html", no footer, adicione links:
+
+    <footer class="footer">
+        <p>📱 Rifa Online - Atualização em Tempo Real</p>
+        <p>
+            <a href="https://wa.me/55SEU_NUMERO">WhatsApp</a> |
+            <a href="https://instagram.com/seu_usuario">Instagram</a>
+        </p>
+        <p style="font-size: 0.9em; margin-top: 10px; opacity: 0.8;">Boa sorte! 🍀</p>
+    </footer>
+
+
+### 11. ADICIONAR ESTILO AO FOOTER
+
+No arquivo "style.css", procure por ".footer" e customize:
+
+    .footer {
+        padding: 30px 20px;
+        text-align: center;
+        background: var(--light);
+        border-top: 2px solid #ddd;
+        color: #666;
+    }
+
+    .footer a {
+        color: var(--primary);
+        text-decoration: none;
+        font-weight: 600;
+    }
+
+    .footer a:hover {
+        text-decoration: underline;
+    }
+
+
+### 12. TESTANDO LOCALMENTE
+
+1. Abra o arquivo "index.html" no seu navegador
+2. Clique nos números para testar
+3. Os dados serão salvos no localStorage automaticamente
+4. Pressione F12 para abrir o console e ver logs
+
+
+### 13. EXPORTAR E FAZER BACKUP
+
+Pressione Ctrl+Shift+E para baixar um arquivo JSON com todos os dados:
+- Números vendidos/disponíveis
+- Dados dos compradores
+- Datas das transações
+- Valores
+
+
+### 14. GERAR RELATÓRIO
+
+Pressione Ctrl+Shift+R para abrir o console com:
+- Total de vendas
+- Faturamento total
+- Lista de transações
+
+
+### DICAS EXTRAS
+
+✓ Use imagens otimizadas (max 1MB)
+✓ Teste em mobile antes de publicar
+✓ Sempre faça backup dos dados (Ctrl+Shift+E)
+✓ Compartilhe o link em múltiplos canais
+✓ Responda clientes rapidamente via WhatsApp
+✓ Faça atualizações em tempo real no seu status/story
+
+
+### QUANDO ESTIVER PRONTO
+
+1. Abra https://app.netlify.com
+2. Faça login (GitHub, Google, etc)
+3. Clique em "Deploy manually"
+4. Arraste a pasta "Rifa-" para a área
+5. Aguarde ~30 segundos
+6. Compartilhe seu link!
+
+
+💡 Dúvidas? Consulte:
+- README.md para mais informações
+- guia.html para tutorial visual
+- www.netlify.com/docs para deploy
+
+
+🎉 Boa sorte com sua rifa!

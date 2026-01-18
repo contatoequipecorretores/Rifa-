@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rifa Lavadora Tanquinho Newmaq 10Kg - R$ 15</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1>🎰 RIFA SOLIDÁRIA</h1>
+                <p class="subtitle">Lavadora Tanquinho Newmaq 10Kg</p>
+            </div>
+        </header>
+
+        <!-- Prize Section -->
+        <section class="prize-section">
+            <div class="prize-card">
+                <div class="prize-image">
+                    <img src="https://via.placeholder.com/300x300/FF6B6B/FFFFFF?text=Lavadora+Newmaq+10Kg" alt="Lavadora Tanquinho">
+                </div>
+                <div class="prize-info">
+                    <h2>Lavadora Tanquinho Newmaq 10Kg</h2>
+                    <p class="description">Lavadora de roupas semi-automática de alta performance</p>
+                    <div class="stats">
+                        <div class="stat">
+                            <span class="stat-label">Capacidade</span>
+                            <span class="stat-value">10 Kg</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Valor</span>
+                            <span class="stat-value">R$ 1.500+</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tickets Section -->
+        <section class="tickets-section">
+            <div class="section-header">
+                <h2>💰 Números Disponíveis</h2>
+                <div class="ticket-stats">
+                    <div class="stat-box">
+                        <span class="stat-number" id="soldCount">0</span>
+                        <span class="stat-label">Vendidos</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-number" id="availCount">100</span>
+                        <span class="stat-label">Disponíveis</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-price">R$ 15</span>
+                        <span class="stat-label">Por Número</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <p class="progress-text"><span id="percentSold">0</span>% vendido</p>
+            </div>
+
+            <!-- Tickets Grid -->
+            <div class="tickets-grid" id="ticketsGrid">
+                <!-- Números serão gerados aqui -->
+            </div>
+        </section>
+
+        <!-- Cart Section -->
+        <section class="cart-section" id="cartSection" style="display: none;">
+            <div class="section-header">
+                <h2>🛒 Seu Carrinho</h2>
+            </div>
+            <div class="cart-items" id="cartItems">
+                <!-- Itens do carrinho aparecem aqui -->
+            </div>
+            <div class="cart-summary">
+                <div class="summary-row">
+                    <span>Subtotal:</span>
+                    <span id="subtotal">R$ 0,00</span>
+                </div>
+                <div class="summary-row">
+                    <span>Desconto (3+):</span>
+                    <span id="discount">R$ 0,00</span>
+                </div>
+                <div class="summary-row total">
+                    <span>Total:</span>
+                    <span id="total">R$ 0,00</span>
+                </div>
+            </div>
+            <div class="cart-actions">
+                <button class="btn-secondary" onclick="app.clearCart()">Limpar Carrinho</button>
+                <button class="btn-primary" onclick="app.checkout()">Finalizar Compra</button>
+            </div>
+        </section>
+
+        <!-- Empty Cart Message -->
+        <div class="empty-cart-message" id="emptyCartMessage">
+            <p>Seu carrinho está vazio. Clique em um número para adicionar! 👇</p>
+        </div>
+
+        <!-- Selected Tickets -->
+        <section class="selected-section" id="selectedSection" style="display: none;">
+            <div class="section-header">
+                <h2>✅ Números Selecionados</h2>
+            </div>
+            <div class="selected-badges" id="selectedBadges">
+                <!-- Badge dos números selecionados aparecem aqui -->
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>📱 Rifa Online - Atualização em Tempo Real</p>
+            <p style="font-size: 0.9em; margin-top: 10px; opacity: 0.8;">Boa sorte! 🍀</p>
+        </footer>
+    </div>
+
+    <!-- Modal de Checkout -->
+    <div id="checkoutModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close" onclick="app.closeModal()">&times;</span>
+            <h2>Finalizar Compra</h2>
+            
+            <div class="checkout-form">
+                <div class="form-group">
+                    <label for="name">Nome Completo *</label>
+                    <input type="text" id="name" placeholder="Seu nome" required>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="email">E-mail *</label>
+                        <input type="email" id="email" placeholder="seu@email.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">WhatsApp *</label>
+                        <input type="tel" id="phone" placeholder="(11) 9999-9999" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="cpf">CPF (opcional)</label>
+                    <input type="text" id="cpf" placeholder="123.456.789-00">
+                </div>
+
+                <div class="checkout-summary">
+                    <div class="summary-row">
+                        <span id="checkoutTickets">0 números</span>
+                        <span id="checkoutTotal">R$ 0,00</span>
+                    </div>
+                    <p style="font-size: 0.9em; margin-top: 10px; color: #666;">
+                        ✓ Você receberá um comprovante por e-mail e WhatsApp
+                    </p>
+                </div>
+
+                <div class="payment-methods">
+                    <h3>Forma de Pagamento</h3>
+                    <label class="payment-option">
+                        <input type="radio" name="payment" value="pix" checked>
+                        <span>💳 PIX</span>
+                    </label>
+                    <label class="payment-option">
+                        <input type="radio" name="payment" value="whatsapp">
+                        <span>💬 Acordar via WhatsApp</span>
+                    </label>
+                </div>
+
+                <button class="btn-primary" style="width: 100%; margin-top: 20px;" onclick="app.processPayment()">
+                    Confirmar Compra
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification -->
+    <div id="notification" class="notification" style="display: none;"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
