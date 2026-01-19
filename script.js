@@ -46,8 +46,8 @@ class RifaApp {
     }
 
     init() {
-        // Inicializar todos os 100 números (0 a 99) - 100% LIVRES
-        for (let i = 0; i < config.totalTickets; i++) {
+        // Inicializar todos os 100 números (1 a 100) - 100% LIVRES
+        for (let i = 1; i <= config.totalTickets; i++) {
             this.tickets.set(i, {
                 number: i,
                 sold: false,
@@ -463,7 +463,7 @@ _Próximos passos: Confirmar pagamento e status_
         }
 
         // Limpar todos os tickets
-        for (let i = 0; i < config.totalTickets; i++) {
+        for (let i = 1; i <= config.totalTickets; i++) {
             this.tickets.set(i, {
                 number: i,
                 sold: false,
