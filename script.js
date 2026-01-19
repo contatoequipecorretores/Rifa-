@@ -1,7 +1,7 @@
 // Configuração da aplicação
 const config = {
     totalTickets: 100,
-    whatsappAdmin: '5511991818457' // Seu WhatsApp
+    whatsappAdmin: '5515991818457' // Seu WhatsApp correto
 };
 
 // Gerador Inteligente de Mensagens
@@ -46,7 +46,7 @@ class RifaApp {
     }
 
     init() {
-        // Inicializar todos os 100 números (0 a 99)
+        // Inicializar todos os 100 números (0 a 99) - 100% LIVRES
         for (let i = 0; i < config.totalTickets; i++) {
             this.tickets.set(i, {
                 number: i,
@@ -54,7 +54,8 @@ class RifaApp {
                 buyer: null,
                 email: null,
                 phone: null,
-                date: null
+                date: null,
+                paymentStatus: 'pendente' // 'pendente', 'confirmado', 'cancelado'
             });
         }
     }
@@ -282,7 +283,8 @@ class RifaApp {
             buyer: buyer.name,
             email: buyer.email,
             phone: buyer.phone,
-            tickets: [...this.cart]
+            tickets: [...this.cart],
+            paymentStatus: 'pendente' // Começa como pendente até admin confirmar
         };
 
         // Marcar números como vendidos
@@ -293,6 +295,7 @@ class RifaApp {
             ticket.email = buyer.email;
             ticket.phone = buyer.phone;
             ticket.date = new Date().toLocaleString('pt-BR');
+            ticket.paymentStatus = 'pendente'; // Aguardando confirmação
         });
 
         // Salvar venda

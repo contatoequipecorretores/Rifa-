@@ -557,7 +557,7 @@
                 this.sales = [];
                 this.config = {
                     totalTickets: 100,
-                    whatsappAdmin: '5511991818457',
+                    whatsappAdmin: '5515991818457',
                     password: 'admin123'
                 };
                 
@@ -678,18 +678,35 @@
 
                 container.innerHTML = this.sales
                     .sort((a, b) => new Date(b.date) - new Date(a.date))
-                    .map(sale => `
-                        <div class="sale-item">
-                            <div class="name">👤 ${sale.buyer}</div>
-                            <div class="phone">📱 ${sale.phone}${sale.email ? ' | 📧 ' + sale.email : ''}</div>
-                            <div class="numbers">📌 ${sale.tickets.map(t => String(t.number).padStart(3, '0')).join(', ')}</div>
-                            <div class="date">🕐 ${sale.date}</div>
-                            <div class="sale-actions">
-                                <button class="btn btn-success" onclick="admin.sendToClient('${sale.phone}', '${sale.buyer}', \`${sale.tickets.map(t => String(t.number).padStart(3, '0')).join(', ')}\`)">✉️ Mensagem</button>
-                                <button class="btn btn-danger" onclick="admin.removeSale('${sale.id}')">🗑️ Remover</button>
+                    .map(sale => {
+                        const paymentStatus = sale.paymentStatus || 'pendente';
+                        let statusColor = '#ffa500';
+                        let statusEmoji = '⏳';
+                        
+                        if (paymentStatus === 'confirmado') {
+                            statusColor = '#51cf66';
+                            statusEmoji = '✅';
+                        } else if (paymentStatus === 'cancelado') {
+                            statusColor = '#ff6b6b';
+                            statusEmoji = '❌';
+                        }
+
+                        return `
+                            <div class="sale-item">
+                                <div class="name">👤 ${sale.buyer}</div>
+                                <div class="phone">📱 ${sale.phone}${sale.email ? ' | 📧 ' + sale.email : ''}</div>
+                                <div class="numbers">📌 ${sale.tickets.map(t => String(t.number).padStart(3, '0')).join(', ')}</div>
+                                <div class="date">🕐 ${sale.date}</div>
+                                <div style="margin-top: 8px; padding: 8px; background: ${statusColor}22; border-left: 3px solid ${statusColor}; border-radius: 4px;">
+                                    <strong style="color: ${statusColor};">${statusEmoji} Pagamento: ${paymentStatus.toUpperCase()}</strong>
+                                </div>
+                                <div class="sale-actions">
+                                    <button class="btn btn-success" onclick="admin.confirmPayment('${sale.id}')">💰 Confirmar Pagamento</button>
+                                    <button class="btn btn-danger" onclick="admin.removeSale('${sale.id}')">🗑️ Cancelar</button>
+                                </div>
                             </div>
-                        </div>
-                    `).join('');
+                        `;
+                    }).join('');
             }
 
             addManual() {
@@ -797,12 +814,47 @@
                     ticket.phone = null;
                     ticket.email = null;
                     ticket.date = null;
+                    ticket.paymentStatus = 'pendente';
                 });
 
                 this.sales.splice(saleIndex, 1);
                 this.saveData();
                 this.render();
-                this.notify('✅ Reserva removida!');
+                this.notify('✅ Reserva cancelada e números liberados!');
+            }
+
+            confirmPayment(saleId) {
+                const sale = this.sales.find(s => s.id === saleId);
+                if (!sale) return;
+
+                if (sale.paymentStatus === 'confirmado') {
+                    this.notify('⚠️ Pagamento já foi confirmado!', 'error');
+                    return;
+                }
+
+                sale.paymentStatus = 'confirmado';
+                this.saveData();
+                this.render();
+                
+                // Enviar confirmação ao cliente
+                const numbersText = sale.tickets.map(t => String(t.number).padStart(3, '0')).join(', ');
+                const message = `
+✅ *PAGAMENTO CONFIRMADO!* ✅
+
+Olá ${sale.buyer}! 🎉
+
+Seu pagamento foi confirmado com sucesso!
+
+*Números confirmados:* ${numbersText}
+
+Muito obrigado! Boa sorte no sorteio! 🍀
+                `.trim();
+
+                const encoded = encodeURIComponent(message);
+                const link = `https://wa.me/55${sale.phone.replace(/\D/g, '')}?text=${encoded}`;
+                
+                window.open(link, '_blank');
+                this.notify('✅ Pagamento confirmado! Mensagem aberta no WhatsApp');
             }
 
             sendToClient(phone, name, numbers) {
