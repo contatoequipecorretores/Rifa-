@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Rifa</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            color: #333;
+            font-size: 24px;
+        }
+
+        .status-info {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .status-box {
+            background: #f0f0f0;
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .status-box .number {
+            font-size: 20px;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .status-box .label {
+            font-size: 12px;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .card h2 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 18px;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            font-family: inherit;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .btn {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #5568d3;
+        }
+
+        .btn-secondary {
+            background: #f0f0f0;
+            color: #333;
+        }
+
+        .btn-secondary:hover {
+            background: #e0e0e0;
+        }
+
+        .btn-danger {
+            background: #ff6b6b;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #ee5a52;
+        }
+
+        .btn-success {
+            background: #51cf66;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #40c057;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .btn-group .btn {
+            flex: 1;
+        }
+
+        .sales-list {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .sale-item {
+            background: #f9f9f9;
+            padding: 12px;
+            margin-bottom: 10px;
+            border-left: 4px solid #667eea;
+            border-radius: 3px;
+        }
+
+        .sale-item .name {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .sale-item .phone {
+            color: #666;
+            font-size: 13px;
+            margin: 3px 0;
+        }
+
+        .sale-item .numbers {
+            color: #667eea;
+            font-weight: 500;
+            margin: 5px 0;
+            word-break: break-word;
+        }
+
+        .sale-item .date {
+            font-size: 12px;
+            color: #999;
+        }
+
+        .sale-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .sale-actions button {
+            padding: 6px 10px;
+            font-size: 12px;
+            flex: 1;
+        }
+
+        .message-template {
+            background: #f0f8ff;
+            padding: 12px;
+            border-radius: 5px;
+            border-left: 3px solid #667eea;
+            margin-bottom: 10px;
+            font-size: 13px;
+            color: #333;
+            max-height: 150px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-family: 'Courier New', monospace;
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: white;
+            padding: 15px 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            z-index: 1000;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        .notification.success {
+            border-left: 4px solid #51cf66;
+        }
+
+        .notification.error {
+            border-left: 4px solid #ff6b6b;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .stat-card .value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .stat-card .label {
+            font-size: 12px;
+            color: #999;
+            margin-top: 5px;
+        }
+
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        .numbers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+            gap: 5px;
+            max-height: 300px;
+            overflow-y: auto;
+            padding: 10px;
+            background: #f9f9f9;
+            border-radius: 5px;
+        }
+
+        .number-badge {
+            background: #667eea;
+            color: white;
+            padding: 8px;
+            border-radius: 3px;
+            text-align: center;
+            font-size: 12px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .number-badge:hover {
+            background: #5568d3;
+        }
+
+        .number-badge.sold {
+            background: #ccc;
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .header {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>⚙️ Admin - Rifa</h1>
+            <div class="status-info">
+                <div class="status-box">
+                    <div class="number" id="totalSold">0</div>
+                    <div class="label">Reservados</div>
+                </div>
+                <div class="status-box">
+                    <div class="number" id="totalAvailable">100</div>
+                    <div class="label">Disponíveis</div>
+                </div>
+                <button class="btn btn-secondary" onclick="location.href='index.html'">← Voltar</button>
+            </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="value" id="statSold">0</div>
+                <div class="label">Total Reservado</div>
+            </div>
+            <div class="stat-card">
+                <div class="value" id="statPercent">0%</div>
+                <div class="label">Percentual</div>
+            </div>
+            <div class="stat-card">
+                <div class="value" id="statOrders">0</div>
+                <div class="label">Pedidos</div>
+            </div>
+            <div class="stat-card">
+                <div class="value" id="autoSync">🟢</div>
+                <div class="label">Sincronizando</div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <!-- Adicionar Manualmente -->
+            <div class="card">
+                <h2>➕ Adicionar Reserva</h2>
+                <div class="form-group">
+                    <label>Nome *</label>
+                    <input type="text" id="addName" placeholder="Nome do cliente">
+                </div>
+                <div class="form-group">
+                    <label>WhatsApp *</label>
+                    <input type="tel" id="addPhone" placeholder="(11) 99999-9999">
+                </div>
+                <div class="form-group">
+                    <label>E-mail</label>
+                    <input type="email" id="addEmail" placeholder="email@exemplo.com">
+                </div>
+                <div class="form-group">
+                    <label>Números (separados por vírgula)</label>
+                    <input type="text" id="addNumbers" placeholder="1, 5, 10, 15">
+                </div>
+                <button class="btn btn-primary" onclick="admin.addManual()" style="width: 100%; margin-top: 10px;">Adicionar Reserva</button>
+            </div>
+
+            <!-- Enviar Mensagem Personalizada -->
+            <div class="card">
+                <h2>💬 Mensagem Personalizada</h2>
+                <div class="form-group">
+                    <label>Telefone de Destino *</label>
+                    <input type="tel" id="customPhone" placeholder="(11) 99999-9999">
+                </div>
+                <div class="form-group">
+                    <label>Mensagem</label>
+                    <textarea id="customMessage" placeholder="Sua mensagem aqui..."></textarea>
+                </div>
+                <div class="message-template" id="messagePreview">
+                    Sua mensagem aparecerá aqui...
+                </div>
+                <button class="btn btn-success" onclick="admin.sendCustom()" style="width: 100%; margin-top: 10px;">📱 Enviar WhatsApp</button>
+            </div>
+
+            <!-- Números Disponíveis -->
+            <div class="card full-width">
+                <h2>🎰 Números Disponíveis</h2>
+                <div class="numbers-grid" id="availableNumbers">
+                    <!-- Números serão listados aqui -->
+                </div>
+            </div>
+
+            <!-- Pedidos Recentes -->
+            <div class="card full-width">
+                <h2>📋 Todas as Reservas</h2>
+                <div class="sales-list" id="salesList">
+                    <!-- Pedidos aparecerão aqui -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification -->
+    <div id="notification" class="notification" style="display: none;"></div>
+
+    <script>
+        // Admin Dashboard
+        class AdminDashboard {
+            constructor() {
+                this.tickets = new Map();
+                this.sales = [];
+                this.config = {
+                    totalTickets: 100,
+                    whatsappAdmin: '5511991818457'
+                };
+                
+                this.init();
+                
+                // Sincronizar a cada 2 segundos
+                setInterval(() => this.sync(), 2000);
+            }
+
+            init() {
+                this.loadData();
+                this.render();
+                this.setupEventListeners();
+            }
+
+            loadData() {
+                const saved = localStorage.getItem('rifaData');
+                if (saved) {
+                    try {
+                        const data = JSON.parse(saved);
+                        this.tickets = new Map(data.tickets);
+                        this.sales = data.sales || [];
+                    } catch (e) {
+                        console.log('Erro ao carregar dados');
+                    }
+                }
+            }
+
+            saveData() {
+                const data = {
+                    tickets: Array.from(this.tickets.entries()),
+                    sales: this.sales
+                };
+                localStorage.setItem('rifaData', JSON.stringify(data));
+            }
+
+            sync() {
+                const oldSold = Array.from(this.tickets.values()).filter(t => t.sold).length;
+                this.loadData();
+                const newSold = Array.from(this.tickets.values()).filter(t => t.sold).length;
+                
+                if (oldSold !== newSold) {
+                    this.render();
+                }
+            }
+
+            render() {
+                this.renderStats();
+                this.renderAvailableNumbers();
+                this.renderSales();
+            }
+
+            renderStats() {
+                const sold = Array.from(this.tickets.values()).filter(t => t.sold).length;
+                const available = this.config.totalTickets - sold;
+                const percent = Math.round((sold / this.config.totalTickets) * 100);
+
+                document.getElementById('statSold').textContent = sold;
+                document.getElementById('statPercent').textContent = percent + '%';
+                document.getElementById('statOrders').textContent = this.sales.length;
+                document.getElementById('totalSold').textContent = sold;
+                document.getElementById('totalAvailable').textContent = available;
+            }
+
+            renderAvailableNumbers() {
+                const container = document.getElementById('availableNumbers');
+                container.innerHTML = '';
+
+                this.tickets.forEach((ticket, number) => {
+                    const badge = document.createElement('div');
+                    badge.className = 'number-badge' + (ticket.sold ? ' sold' : '');
+                    badge.textContent = String(number).padStart(3, '0');
+                    
+                    if (!ticket.sold) {
+                        badge.title = 'Clique para reservar';
+                        badge.style.cursor = 'pointer';
+                        badge.onclick = () => this.quickReserve(number);
+                    } else {
+                        badge.title = `Reservado por ${ticket.buyer}`;
+                    }
+                    
+                    container.appendChild(badge);
+                });
+            }
+
+            renderSales() {
+                const container = document.getElementById('salesList');
+                
+                if (this.sales.length === 0) {
+                    container.innerHTML = '<p style="text-align: center; color: #999; padding: 20px;">Nenhuma reserva ainda</p>';
+                    return;
+                }
+
+                container.innerHTML = this.sales
+                    .sort((a, b) => new Date(b.date) - new Date(a.date))
+                    .map(sale => `
+                        <div class="sale-item">
+                            <div class="name">${sale.buyer}</div>
+                            <div class="phone">📱 ${sale.phone}${sale.email ? ' | 📧 ' + sale.email : ''}</div>
+                            <div class="numbers">Números: ${sale.tickets.map(t => String(t.number).padStart(3, '0')).join(', ')}</div>
+                            <div class="date">${sale.date}</div>
+                            <div class="sale-actions">
+                                <button class="btn btn-secondary" onclick="admin.sendConfirmation('${sale.phone}', '${sale.buyer}', \`${sale.tickets.map(t => String(t.number).padStart(3, '0')).join(', ')}\`)">Confirmar</button>
+                                <button class="btn btn-danger" onclick="admin.removeSale('${sale.id}')">Remover</button>
+                            </div>
+                        </div>
+                    `).join('');
+            }
+
+            addManual() {
+                const name = document.getElementById('addName').value.trim();
+                const phone = document.getElementById('addPhone').value.trim();
+                const email = document.getElementById('addEmail').value.trim();
+                const numbersStr = document.getElementById('addNumbers').value.trim();
+
+                if (!name || !phone) {
+                    this.notify('Preencha nome e telefone!', 'error');
+                    return;
+                }
+
+                if (!numbersStr) {
+                    this.notify('Digite os números!', 'error');
+                    return;
+                }
+
+                const numbers = numbersStr.split(',')
+                    .map(n => parseInt(n.trim()))
+                    .filter(n => !isNaN(n) && n >= 0 && n < this.config.totalTickets);
+
+                if (numbers.length === 0) {
+                    this.notify('Números inválidos!', 'error');
+                    return;
+                }
+
+                // Verificar se números já estão reservados
+                const alreadySold = numbers.filter(n => this.tickets.get(n).sold);
+                if (alreadySold.length > 0) {
+                    this.notify(`Números já reservados: ${alreadySold.join(', ')}`, 'error');
+                    return;
+                }
+
+                const sale = {
+                    id: 'RIFA-' + Date.now(),
+                    date: new Date().toLocaleString('pt-BR'),
+                    buyer: name,
+                    email: email,
+                    phone: phone,
+                    tickets: numbers.map(n => ({ number: n }))
+                };
+
+                // Marcar números
+                numbers.forEach(num => {
+                    const ticket = this.tickets.get(num);
+                    ticket.sold = true;
+                    ticket.buyer = name;
+                    ticket.email = email;
+                    ticket.phone = phone;
+                    ticket.date = sale.date;
+                });
+
+                this.sales.push(sale);
+                this.saveData();
+                this.render();
+                this.notify(`✓ ${numbers.length} número(s) adicionado(s)!`);
+
+                // Limpar
+                document.getElementById('addName').value = '';
+                document.getElementById('addPhone').value = '';
+                document.getElementById('addEmail').value = '';
+                document.getElementById('addNumbers').value = '';
+            }
+
+            quickReserve(number) {
+                const name = prompt('Nome do cliente:');
+                if (!name) return;
+
+                const phone = prompt('WhatsApp (apenas números):');
+                if (!phone) return;
+
+                const ticket = this.tickets.get(number);
+                ticket.sold = true;
+                ticket.buyer = name;
+                ticket.phone = phone;
+                ticket.date = new Date().toLocaleString('pt-BR');
+
+                const sale = {
+                    id: 'RIFA-' + Date.now(),
+                    date: ticket.date,
+                    buyer: name,
+                    email: '',
+                    phone: phone,
+                    tickets: [{ number: number }]
+                };
+
+                this.sales.push(sale);
+                this.saveData();
+                this.render();
+                this.notify(`✓ Número ${String(number).padStart(3, '0')} reservado!`);
+            }
+
+            removeSale(saleId) {
+                if (!confirm('Tem certeza? Isso liberará os números.')) return;
+
+                const saleIndex = this.sales.findIndex(s => s.id === saleId);
+                if (saleIndex === -1) return;
+
+                const sale = this.sales[saleIndex];
+
+                // Liberar números
+                sale.tickets.forEach(t => {
+                    const ticket = this.tickets.get(t.number);
+                    ticket.sold = false;
+                    ticket.buyer = null;
+                    ticket.phone = null;
+                    ticket.email = null;
+                    ticket.date = null;
+                });
+
+                this.sales.splice(saleIndex, 1);
+                this.saveData();
+                this.render();
+                this.notify('✓ Reserva removida e números liberados!');
+            }
+
+            sendConfirmation(phone, name, numbers) {
+                const message = `
+Olá ${name}! 👋
+
+Sua reserva foi confirmada! 🎉
+
+Números: ${numbers}
+
+Agora é só aguardar o sorteio.
+Boa sorte! 🍀
+                `.trim();
+
+                const encoded = encodeURIComponent(message);
+                const link = `https://wa.me/55${phone.replace(/\D/g, '')}?text=${encoded}`;
+                
+                window.open(link, '_blank');
+                this.notify('✓ Mensagem aberta no WhatsApp!');
+            }
+
+            sendCustom() {
+                const phone = document.getElementById('customPhone').value.trim();
+                const message = document.getElementById('customMessage').value.trim();
+
+                if (!phone) {
+                    this.notify('Preencha o telefone!', 'error');
+                    return;
+                }
+
+                if (!message) {
+                    this.notify('Escreva uma mensagem!', 'error');
+                    return;
+                }
+
+                const encoded = encodeURIComponent(message);
+                const link = `https://wa.me/55${phone.replace(/\D/g, '')}?text=${encoded}`;
+                
+                window.open(link, '_blank');
+                this.notify('✓ WhatsApp aberto!');
+            }
+
+            notify(msg, type = 'success') {
+                const notification = document.getElementById('notification');
+                notification.textContent = msg;
+                notification.className = `notification ${type}`;
+                notification.style.display = 'block';
+
+                setTimeout(() => {
+                    notification.style.display = 'none';
+                }, 3000);
+            }
+
+            setupEventListeners() {
+                const customMessage = document.getElementById('customMessage');
+                const messagePreview = document.getElementById('messagePreview');
+
+                customMessage.addEventListener('input', () => {
+                    messagePreview.textContent = customMessage.value || 'Sua mensagem aparecerá aqui...';
+                });
+            }
+        }
+
+        // Iniciar
+        const admin = new AdminDashboard();
+    </script>
+</body>
+</html>

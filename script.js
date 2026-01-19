@@ -1,7 +1,7 @@
 // Configuração da aplicação
 const config = {
     totalTickets: 100,
-    whatsappAdmin: '5511987654321' // Altere com seu número
+    whatsappAdmin: '5511991818457' // Seu WhatsApp
 };
 
 // Classe principal da aplicação
