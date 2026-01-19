@@ -512,7 +512,23 @@
                 <button class="btn btn-primary" onclick="admin.addManual()">✅ Adicionar</button>
             </div>
 
-            <!-- Enviar Mensagem Personalizada -->
+            <!-- Ferramentas de Limpeza -->
+            <div class="card">
+                <h2>🧹 Ferramentas</h2>
+                <p style="color: #999; font-size: 13px; margin-bottom: 15px;">Ações rápidas de manutenção</p>
+                
+                <div class="form-group">
+                    <button class="btn btn-danger" onclick="admin.clearAllReservations()" style="width: 100%; margin-bottom: 10px;">
+                        🔄 Zerar TODAS as Reservas
+                    </button>
+                </div>
+                
+                <div class="form-group">
+                    <button class="btn btn-success" onclick="admin.exportAllData()" style="width: 100%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+                        📥 Exportar Dados (Backup)
+                    </button>
+                </div>
+            </div>
             <div class="card">
                 <h2>💬 Mensagem Personalizada</h2>
                 <div class="form-group">
@@ -929,6 +945,57 @@ Qualquer dúvida, é só chamar! 💬
                         preview.textContent = customMessage.value || 'Sua mensagem aparecerá aqui...';
                     });
                 }
+            }
+
+            // Zerar TODAS as reservas
+            clearAllReservations() {
+                if (!confirm('⚠️ ATENÇÃO! Isso vai ZERAR TODAS as reservas e vendas!\n\nDeseja continuar?')) {
+                    return;
+                }
+                
+                if (!confirm('Tem CERTEZA absoluta? Essa ação não pode ser desfeita!')) {
+                    return;
+                }
+
+                // Limpar todos os tickets
+                for (let i = 0; i < this.config.totalTickets; i++) {
+                    this.tickets.set(i, {
+                        number: i,
+                        sold: false,
+                        buyer: null,
+                        email: null,
+                        phone: null,
+                        date: null,
+                        paymentStatus: 'pendente'
+                    });
+                }
+
+                // Limpar todas as vendas
+                this.sales = [];
+
+                // Salvar e renderizar
+                this.saveData();
+                this.render();
+
+                this.notify('✅ Todas as reservas foram zeradas!');
+            }
+
+            // Exportar todos os dados (backup)
+            exportAllData() {
+                const data = {
+                    timestamp: new Date().toISOString(),
+                    tickets: Array.from(this.tickets.entries()),
+                    sales: this.sales
+                };
+                const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `rifa-admin-backup-${Date.now()}.json`;
+                a.click();
+                URL.revokeObjectURL(url);
+                
+                this.notify('✅ Backup salvo com sucesso!');
             }
         }
 

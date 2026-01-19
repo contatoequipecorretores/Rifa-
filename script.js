@@ -451,6 +451,41 @@ _Próximos passos: Confirmar pagamento e status_
         a.click();
         URL.revokeObjectURL(url);
     }
+
+    // Zerar todas as reservas
+    clearAllReservations() {
+        if (!confirm('⚠️ ATENÇÃO! Isso vai ZERAR TODAS as reservas e vendas!\n\nDeseja continuar?')) {
+            return;
+        }
+        
+        if (!confirm('Tem CERTEZA absoluta? Essa ação não pode ser desfeita!')) {
+            return;
+        }
+
+        // Limpar todos os tickets
+        for (let i = 0; i < config.totalTickets; i++) {
+            this.tickets.set(i, {
+                number: i,
+                sold: false,
+                buyer: null,
+                email: null,
+                phone: null,
+                date: null,
+                paymentStatus: 'pendente'
+            });
+        }
+
+        // Limpar todas as vendas
+        this.sales = [];
+
+        // Salvar e renderizar
+        this.saveToStorage();
+        this.renderTickets();
+        this.updateStats();
+
+        console.log('✅ Todas as reservas foram zeradas!');
+        alert('✅ Reservas zeradas com sucesso!');
+    }
 }
 
 // Instanciar aplicação
