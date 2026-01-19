@@ -86,10 +86,14 @@ class RifaApp {
         const grid = document.getElementById('ticketsGrid');
         grid.innerHTML = '';
 
-        this.tickets.forEach((ticket, number) => {
+        // Ordenar números numericamente (não lexicograficamente)
+        const sortedNumbers = Array.from(this.tickets.keys()).sort((a, b) => a - b);
+        
+        sortedNumbers.forEach((number) => {
+            const ticket = this.tickets.get(number);
             const btn = document.createElement('button');
             btn.className = 'ticket-btn';
-            btn.textContent = String(number).padStart(3, '0'); // 000, 001, 002...
+            btn.textContent = String(number).padStart(3, '0'); // 001, 002, 003...
             
             if (ticket.sold) {
                 btn.classList.add('sold');
