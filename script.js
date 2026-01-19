@@ -4,12 +4,37 @@ const config = {
     whatsappAdmin: '5511991818457' // Seu WhatsApp
 };
 
+// Gerador Inteligente de Mensagens
+class MessageGenerator {
+    constructor() {
+        this.templates = [
+            (numbers, qty) => `Olá! 👋\n\nEstou interessado em participar da rifa! 🎰\n\nGostaria de reservar os números: ${numbers}\n\nTotal de números: ${qty}`,
+            (numbers, qty) => `Oi! 😊\n\nQuero garantir minha chance! Vou levar os números ${numbers} (${qty} no total).`,
+            (numbers, qty) => `Opa! Tenho sorte nessa! 🍀\n\nCom licença, gostaria desses números: ${numbers}\n\n(${qty} números no total)`,
+            (numbers, qty) => `Testando a sorte! ✨\n\nInteressado em: ${numbers}\n\nQuantidade: ${qty}`,
+            (numbers, qty) => `Vamo lá! 🎯\n\nQuero esses números: ${numbers}\n\nTotal: ${qty} entrada(s)`,
+            (numbers, qty) => `E aí! Tudo certo? 👍\n\nGostaria de reservar: ${numbers}\n\nSão ${qty} número(s)`,
+            (numbers, qty) => `Pode crer! 💪\n\nVou querer esses números aí: ${numbers}\n\n(${qty} ao todo)`,
+            (numbers, qty) => `Boa sorte tem que ter! 🎲\n\nReservo esses aqui: ${numbers}\n\nTotal de ${qty}`,
+            (numbers, qty) => `Deixa eu tentar! 🍀\n\nOs números que quero são: ${numbers}\n\nQuantidade: ${qty}`,
+            (numbers, qty) => `Bora nessa! 🚀\n\nInteressado em: ${numbers}\n\n(${qty} números no total)`,
+        ];
+    }
+
+    generate(numbers, quantity) {
+        const randomIndex = Math.floor(Math.random() * this.templates.length);
+        const template = this.templates[randomIndex];
+        return template(numbers, quantity);
+    }
+}
+
 // Classe principal da aplicação
 class RifaApp {
     constructor() {
         this.tickets = new Map(); // Mapa de números da rifa
         this.cart = []; // Carrinho de compras
         this.sales = []; // Histórico de vendas
+        this.messageGenerator = new MessageGenerator();
         
         this.init();
         this.loadFromStorage();
@@ -280,28 +305,20 @@ class RifaApp {
             .map(t => String(t.number).padStart(3, '0'))
             .join(', ');
 
-        // MENSAGEM INTELIGENTE E PERSONALIZADA PARA O CLIENTE
+        // GERAR MENSAGEM INTELIGENTE AUTOMATICAMENTE
+        const intelligentMessage = this.messageGenerator.generate(ticketList, this.cart.length);
+
+        // MENSAGEM PARA O CLIENTE (enviada automaticamente pelo sistema)
         const clientMessage = `
-🎰 *RIFA SOLIDÁRIA* 🎰
+${intelligentMessage}
 
-Olá ${buyer.name}! 👋
+---
 
-Tudo bem? 😊
+*Dados do Cliente:*
+Nome: ${buyer.name}
+Telefone: ${buyer.phone}
 
-Sua reserva na rifa foi *confirmada com sucesso*! 🎉
-
-*📌 SEUS NÚMEROS:*
-${ticketList}
-
-*Quantidade: ${this.cart.length} número(s)*
-
-✨ Agora é só aguardar o sorteio e torcer para a sorte estar do seu lado! 
-
-*Boa sorte!* 🍀🍀🍀
-
-Qualquer dúvida ou problema, é só chamar! 💬
-
-Muito obrigado! 🙏
+*Status:* Aguardando confirmação de pagamento ⏳
         `.trim();
 
         // MENSAGEM INTELIGENTE PARA O ADMIN
@@ -317,6 +334,9 @@ ${buyer.email ? `*E-mail:* ${buyer.email}` : ''}
 
 *Data/Hora:* ${sale.date}
 *ID:* ${sale.id}
+
+💬 *Mensagem do Cliente:*
+${intelligentMessage}
 
 _Próximos passos: Confirmar pagamento e status_
         `.trim();
