@@ -65,8 +65,15 @@ class RifaApp {
         if (saved) {
             try {
                 const data = JSON.parse(saved);
-                this.tickets = new Map(data.tickets);
-                this.sales = data.sales || [];
+                // Remover número 0 dos tickets salvos (dados antigos)
+                const filteredTickets = data.tickets.filter(([key]) => key !== 0);
+                this.tickets = new Map(filteredTickets);
+                
+                // Remover número 0 das vendas
+                this.sales = (data.sales || []).map(sale => ({
+                    ...sale,
+                    tickets: sale.tickets.filter(t => t.number !== 0)
+                })).filter(sale => sale.tickets.length > 0);
             } catch (e) {
                 console.log('Dados corrompidos, inicializando novo');
                 this.init();
@@ -114,6 +121,9 @@ class RifaApp {
     }
 
     toggleTicket(number) {
+        // Não permitir número 0
+        if (number === 0) return;
+        
         const ticket = this.tickets.get(number);
         
         if (ticket.sold) return; // Não permitir selecionar vendidos
