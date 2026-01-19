@@ -18,17 +18,80 @@
             padding: 20px;
         }
 
+        /* LOGIN */
+        .login-container {
+            max-width: 400px;
+            margin: 100px auto;
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            text-align: center;
+        }
+
+        .login-container h1 {
+            color: #667eea;
+            margin-bottom: 30px;
+            font-size: 28px;
+        }
+
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .login-form input {
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .login-form input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .btn-login {
+            padding: 12px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .btn-login:hover {
+            transform: translateY(-2px);
+        }
+
+        .login-error {
+            color: #ff6b6b;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* ADMIN DASHBOARD */
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
         }
 
         .header {
             background: white;
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -36,24 +99,33 @@
 
         .header h1 {
             color: #333;
-            font-size: 24px;
+            font-size: 26px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 15px;
+            align-items: center;
         }
 
         .status-info {
             display: flex;
-            gap: 20px;
-            align-items: center;
+            gap: 15px;
         }
 
         .status-box {
-            background: #f0f0f0;
-            padding: 10px 15px;
-            border-radius: 5px;
+            background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
+            padding: 12px 18px;
+            border-radius: 8px;
             text-align: center;
+            border-left: 4px solid #667eea;
         }
 
         .status-box .number {
-            font-size: 20px;
+            font-size: 22px;
             font-weight: bold;
             color: #667eea;
         }
@@ -67,22 +139,25 @@
         .main-content {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 20px;
+            gap: 25px;
         }
 
         .card {
             background: white;
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
         }
 
         .card h2 {
             color: #333;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             font-size: 18px;
-            border-bottom: 2px solid #667eea;
-            padding-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 15px;
         }
 
         .form-group {
@@ -91,59 +166,61 @@
 
         .form-group label {
             display: block;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
             color: #333;
-            font-weight: 500;
+            font-weight: 600;
             font-size: 14px;
         }
 
         .form-group input,
-        .form-group select,
         .form-group textarea {
             width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
+            padding: 12px;
+            border: 2px solid #f0f0f0;
+            border-radius: 8px;
             font-size: 14px;
             font-family: inherit;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
         }
 
         .form-group textarea {
             resize: vertical;
-            min-height: 80px;
+            min-height: 100px;
         }
 
         .btn {
-            padding: 10px 15px;
+            padding: 12px 18px;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
             cursor: pointer;
             font-size: 14px;
-            font-weight: 500;
+            font-weight: 600;
             transition: all 0.3s;
         }
 
         .btn-primary {
-            background: #667eea;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
+            width: 100%;
+            margin-top: 10px;
         }
 
         .btn-primary:hover {
-            background: #5568d3;
-        }
-
-        .btn-secondary {
-            background: #f0f0f0;
-            color: #333;
-        }
-
-        .btn-secondary:hover {
-            background: #e0e0e0;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
         }
 
         .btn-danger {
             background: #ff6b6b;
             color: white;
+            padding: 6px 10px;
+            font-size: 12px;
         }
 
         .btn-danger:hover {
@@ -153,79 +230,91 @@
         .btn-success {
             background: #51cf66;
             color: white;
+            padding: 8px 12px;
+            font-size: 12px;
         }
 
         .btn-success:hover {
             background: #40c057;
         }
 
-        .btn-group {
-            display: flex;
-            gap: 10px;
-            margin-top: 15px;
+        .btn-logout {
+            background: #ff6b6b;
+            color: white;
+            padding: 10px 15px;
         }
 
-        .btn-group .btn {
-            flex: 1;
+        .btn-logout:hover {
+            background: #ee5a52;
         }
 
         .sales-list {
-            max-height: 400px;
+            max-height: 500px;
             overflow-y: auto;
         }
 
         .sale-item {
-            background: #f9f9f9;
-            padding: 12px;
-            margin-bottom: 10px;
+            background: linear-gradient(135deg, #f8f9ff 0%, #f0f0f8 100%);
+            padding: 15px;
+            margin-bottom: 12px;
             border-left: 4px solid #667eea;
-            border-radius: 3px;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        .sale-item:hover {
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transform: translateX(5px);
         }
 
         .sale-item .name {
             font-weight: bold;
             color: #333;
+            font-size: 15px;
         }
 
         .sale-item .phone {
             color: #666;
             font-size: 13px;
-            margin: 3px 0;
+            margin: 5px 0;
         }
 
         .sale-item .numbers {
             color: #667eea;
-            font-weight: 500;
-            margin: 5px 0;
+            font-weight: 600;
+            margin: 8px 0;
             word-break: break-word;
+            background: white;
+            padding: 8px;
+            border-radius: 5px;
         }
 
         .sale-item .date {
-            font-size: 12px;
+            font-size: 11px;
             color: #999;
+            margin-top: 5px;
         }
 
         .sale-actions {
             display: flex;
             gap: 8px;
-            margin-top: 8px;
+            margin-top: 12px;
         }
 
-        .sale-actions button {
-            padding: 6px 10px;
-            font-size: 12px;
+        .sale-actions .btn {
             flex: 1;
+            width: auto;
         }
 
         .message-template {
             background: #f0f8ff;
-            padding: 12px;
-            border-radius: 5px;
-            border-left: 3px solid #667eea;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
             margin-bottom: 10px;
             font-size: 13px;
             color: #333;
-            max-height: 150px;
+            max-height: 180px;
             overflow-y: auto;
             white-space: pre-wrap;
             word-wrap: break-word;
@@ -237,11 +326,12 @@
             top: 20px;
             right: 20px;
             background: white;
-            padding: 15px 20px;
-            border-radius: 5px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            padding: 18px 24px;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
             z-index: 1000;
             animation: slideIn 0.3s ease-out;
+            font-weight: 600;
         }
 
         .notification.success {
@@ -266,28 +356,31 @@
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
-            margin-bottom: 20px;
+            gap: 15px;
+            margin-bottom: 25px;
         }
 
         .stat-card {
             background: white;
-            padding: 15px;
-            border-radius: 8px;
+            padding: 20px;
+            border-radius: 15px;
             text-align: center;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            border-top: 4px solid #667eea;
         }
 
         .stat-card .value {
-            font-size: 24px;
+            font-size: 28px;
             font-weight: bold;
-            color: #667eea;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .stat-card .label {
-            font-size: 12px;
+            font-size: 13px;
             color: #999;
-            margin-top: 5px;
+            margin-top: 8px;
         }
 
         .full-width {
@@ -296,35 +389,37 @@
 
         .numbers-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
-            gap: 5px;
+            grid-template-columns: repeat(auto-fill, minmax(55px, 1fr));
+            gap: 8px;
             max-height: 300px;
             overflow-y: auto;
-            padding: 10px;
+            padding: 12px;
             background: #f9f9f9;
-            border-radius: 5px;
+            border-radius: 8px;
         }
 
         .number-badge {
-            background: #667eea;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            padding: 8px;
-            border-radius: 3px;
+            padding: 10px;
+            border-radius: 6px;
             text-align: center;
             font-size: 12px;
             font-weight: bold;
             cursor: pointer;
             transition: all 0.2s;
+            border: 2px solid transparent;
         }
 
-        .number-badge:hover {
-            background: #5568d3;
+        .number-badge:hover:not(.sold) {
+            background: linear-gradient(135deg, #5568d3 0%, #6b3a90 100%);
+            transform: scale(1.05);
         }
 
         .number-badge.sold {
             background: #ccc;
             cursor: not-allowed;
-            opacity: 0.6;
+            opacity: 0.5;
         }
 
         @media (max-width: 768px) {
@@ -344,20 +439,33 @@
     </style>
 </head>
 <body>
-    <div class="container">
+    <!-- LOGIN -->
+    <div class="login-container" id="loginContainer">
+        <h1>🔐 Admin</h1>
+        <div class="login-form">
+            <input type="password" id="passwordInput" placeholder="Insira a senha" onkeypress="if(event.key==='Enter') admin.login()">
+            <button class="btn-login" onclick="admin.login()">Entrar</button>
+            <div class="login-error" id="loginError"></div>
+        </div>
+    </div>
+
+    <!-- DASHBOARD -->
+    <div class="container hidden" id="adminDashboard">
         <!-- Header -->
         <div class="header">
             <h1>⚙️ Admin - Rifa</h1>
-            <div class="status-info">
-                <div class="status-box">
-                    <div class="number" id="totalSold">0</div>
-                    <div class="label">Reservados</div>
+            <div class="header-actions">
+                <div class="status-info">
+                    <div class="status-box">
+                        <div class="number" id="totalSold">0</div>
+                        <div class="label">Reservados</div>
+                    </div>
+                    <div class="status-box">
+                        <div class="number" id="totalAvailable">100</div>
+                        <div class="label">Disponíveis</div>
+                    </div>
                 </div>
-                <div class="status-box">
-                    <div class="number" id="totalAvailable">100</div>
-                    <div class="label">Disponíveis</div>
-                </div>
-                <button class="btn btn-secondary" onclick="location.href='index.html'">← Voltar</button>
+                <button class="btn btn-logout" onclick="admin.logout()">Sair 🚪</button>
             </div>
         </div>
 
@@ -398,10 +506,10 @@
                     <input type="email" id="addEmail" placeholder="email@exemplo.com">
                 </div>
                 <div class="form-group">
-                    <label>Números (separados por vírgula)</label>
-                    <input type="text" id="addNumbers" placeholder="1, 5, 10, 15">
+                    <label>Números (ex: 1, 5, 10, 15)</label>
+                    <input type="text" id="addNumbers" placeholder="Separados por vírgula">
                 </div>
-                <button class="btn btn-primary" onclick="admin.addManual()" style="width: 100%; margin-top: 10px;">Adicionar Reserva</button>
+                <button class="btn btn-primary" onclick="admin.addManual()">✅ Adicionar</button>
             </div>
 
             <!-- Enviar Mensagem Personalizada -->
@@ -418,7 +526,7 @@
                 <div class="message-template" id="messagePreview">
                     Sua mensagem aparecerá aqui...
                 </div>
-                <button class="btn btn-success" onclick="admin.sendCustom()" style="width: 100%; margin-top: 10px;">📱 Enviar WhatsApp</button>
+                <button class="btn btn-primary" onclick="admin.sendCustom()" style="background: linear-gradient(135deg, #51cf66 0%, #40c057 100%);">📱 Enviar WhatsApp</button>
             </div>
 
             <!-- Números Disponíveis -->
@@ -443,26 +551,52 @@
     <div id="notification" class="notification" style="display: none;"></div>
 
     <script>
-        // Admin Dashboard
         class AdminDashboard {
             constructor() {
                 this.tickets = new Map();
                 this.sales = [];
                 this.config = {
                     totalTickets: 100,
-                    whatsappAdmin: '5511991818457'
+                    whatsappAdmin: '5511991818457',
+                    password: 'admin123'
                 };
                 
-                this.init();
+                this.isAuthenticated = false;
+                this.setupEventListeners();
+            }
+
+            login() {
+                const password = document.getElementById('passwordInput').value;
                 
-                // Sincronizar a cada 2 segundos
-                setInterval(() => this.sync(), 2000);
+                if (password === this.config.password) {
+                    this.isAuthenticated = true;
+                    localStorage.setItem('adminSession', 'true');
+                    document.getElementById('loginContainer').classList.add('hidden');
+                    document.getElementById('adminDashboard').classList.remove('hidden');
+                    this.init();
+                    this.notify('✓ Bem-vindo ao Admin!');
+                } else {
+                    document.getElementById('loginError').textContent = '❌ Senha incorreta!';
+                    document.getElementById('passwordInput').value = '';
+                }
+            }
+
+            logout() {
+                if (confirm('Tem certeza que deseja sair?')) {
+                    this.isAuthenticated = false;
+                    localStorage.removeItem('adminSession');
+                    document.getElementById('loginContainer').classList.remove('hidden');
+                    document.getElementById('adminDashboard').classList.add('hidden');
+                    document.getElementById('passwordInput').value = '';
+                    document.getElementById('loginError').textContent = '';
+                }
             }
 
             init() {
                 this.loadData();
                 this.render();
-                this.setupEventListeners();
+                
+                setInterval(() => this.sync(), 2000);
             }
 
             loadData() {
@@ -525,7 +659,6 @@
                     
                     if (!ticket.sold) {
                         badge.title = 'Clique para reservar';
-                        badge.style.cursor = 'pointer';
                         badge.onclick = () => this.quickReserve(number);
                     } else {
                         badge.title = `Reservado por ${ticket.buyer}`;
@@ -547,13 +680,13 @@
                     .sort((a, b) => new Date(b.date) - new Date(a.date))
                     .map(sale => `
                         <div class="sale-item">
-                            <div class="name">${sale.buyer}</div>
+                            <div class="name">👤 ${sale.buyer}</div>
                             <div class="phone">📱 ${sale.phone}${sale.email ? ' | 📧 ' + sale.email : ''}</div>
-                            <div class="numbers">Números: ${sale.tickets.map(t => String(t.number).padStart(3, '0')).join(', ')}</div>
-                            <div class="date">${sale.date}</div>
+                            <div class="numbers">📌 ${sale.tickets.map(t => String(t.number).padStart(3, '0')).join(', ')}</div>
+                            <div class="date">🕐 ${sale.date}</div>
                             <div class="sale-actions">
-                                <button class="btn btn-secondary" onclick="admin.sendConfirmation('${sale.phone}', '${sale.buyer}', \`${sale.tickets.map(t => String(t.number).padStart(3, '0')).join(', ')}\`)">Confirmar</button>
-                                <button class="btn btn-danger" onclick="admin.removeSale('${sale.id}')">Remover</button>
+                                <button class="btn btn-success" onclick="admin.sendToClient('${sale.phone}', '${sale.buyer}', \`${sale.tickets.map(t => String(t.number).padStart(3, '0')).join(', ')}\`)">✉️ Mensagem</button>
+                                <button class="btn btn-danger" onclick="admin.removeSale('${sale.id}')">🗑️ Remover</button>
                             </div>
                         </div>
                     `).join('');
@@ -566,12 +699,12 @@
                 const numbersStr = document.getElementById('addNumbers').value.trim();
 
                 if (!name || !phone) {
-                    this.notify('Preencha nome e telefone!', 'error');
+                    this.notify('❌ Preencha nome e telefone!', 'error');
                     return;
                 }
 
                 if (!numbersStr) {
-                    this.notify('Digite os números!', 'error');
+                    this.notify('❌ Digite os números!', 'error');
                     return;
                 }
 
@@ -580,14 +713,13 @@
                     .filter(n => !isNaN(n) && n >= 0 && n < this.config.totalTickets);
 
                 if (numbers.length === 0) {
-                    this.notify('Números inválidos!', 'error');
+                    this.notify('❌ Números inválidos!', 'error');
                     return;
                 }
 
-                // Verificar se números já estão reservados
-                const alreadySold = numbers.filter(n => this.tickets.get(n).sold);
+                const alreadySold = numbers.filter(n => this.tickets.get(n) && this.tickets.get(n).sold);
                 if (alreadySold.length > 0) {
-                    this.notify(`Números já reservados: ${alreadySold.join(', ')}`, 'error');
+                    this.notify(`❌ Números já reservados: ${alreadySold.join(', ')}`, 'error');
                     return;
                 }
 
@@ -600,22 +732,22 @@
                     tickets: numbers.map(n => ({ number: n }))
                 };
 
-                // Marcar números
                 numbers.forEach(num => {
                     const ticket = this.tickets.get(num);
-                    ticket.sold = true;
-                    ticket.buyer = name;
-                    ticket.email = email;
-                    ticket.phone = phone;
-                    ticket.date = sale.date;
+                    if (ticket) {
+                        ticket.sold = true;
+                        ticket.buyer = name;
+                        ticket.email = email;
+                        ticket.phone = phone;
+                        ticket.date = sale.date;
+                    }
                 });
 
                 this.sales.push(sale);
                 this.saveData();
                 this.render();
-                this.notify(`✓ ${numbers.length} número(s) adicionado(s)!`);
+                this.notify(`✅ ${numbers.length} número(s) adicionado(s)!`);
 
-                // Limpar
                 document.getElementById('addName').value = '';
                 document.getElementById('addPhone').value = '';
                 document.getElementById('addEmail').value = '';
@@ -647,7 +779,7 @@
                 this.sales.push(sale);
                 this.saveData();
                 this.render();
-                this.notify(`✓ Número ${String(number).padStart(3, '0')} reservado!`);
+                this.notify(`✅ Número ${String(number).padStart(3, '0')} reservado!`);
             }
 
             removeSale(saleId) {
@@ -658,7 +790,6 @@
 
                 const sale = this.sales[saleIndex];
 
-                // Liberar números
                 sale.tickets.forEach(t => {
                     const ticket = this.tickets.get(t.number);
                     ticket.sold = false;
@@ -671,26 +802,32 @@
                 this.sales.splice(saleIndex, 1);
                 this.saveData();
                 this.render();
-                this.notify('✓ Reserva removida e números liberados!');
+                this.notify('✅ Reserva removida!');
             }
 
-            sendConfirmation(phone, name, numbers) {
+            sendToClient(phone, name, numbers) {
                 const message = `
+🎰 *RIFA SOLIDÁRIA* 🎰
+
 Olá ${name}! 👋
 
 Sua reserva foi confirmada! 🎉
 
-Números: ${numbers}
+📌 *Seus Números:*
+${numbers}
 
-Agora é só aguardar o sorteio.
-Boa sorte! 🍀
+✨ Agora é só aguardar o resultado do sorteio!
+
+*Boa sorte!* 🍀🍀🍀
+
+Qualquer dúvida, é só chamar! 💬
                 `.trim();
 
                 const encoded = encodeURIComponent(message);
                 const link = `https://wa.me/55${phone.replace(/\D/g, '')}?text=${encoded}`;
                 
                 window.open(link, '_blank');
-                this.notify('✓ Mensagem aberta no WhatsApp!');
+                this.notify('✅ WhatsApp aberto!');
             }
 
             sendCustom() {
@@ -698,12 +835,12 @@ Boa sorte! 🍀
                 const message = document.getElementById('customMessage').value.trim();
 
                 if (!phone) {
-                    this.notify('Preencha o telefone!', 'error');
+                    this.notify('❌ Preencha o telefone!', 'error');
                     return;
                 }
 
                 if (!message) {
-                    this.notify('Escreva uma mensagem!', 'error');
+                    this.notify('❌ Escreva uma mensagem!', 'error');
                     return;
                 }
 
@@ -711,7 +848,7 @@ Boa sorte! 🍀
                 const link = `https://wa.me/55${phone.replace(/\D/g, '')}?text=${encoded}`;
                 
                 window.open(link, '_blank');
-                this.notify('✓ WhatsApp aberto!');
+                this.notify('✅ WhatsApp aberto!');
             }
 
             notify(msg, type = 'success') {
@@ -726,16 +863,23 @@ Boa sorte! 🍀
             }
 
             setupEventListeners() {
-                const customMessage = document.getElementById('customMessage');
-                const messagePreview = document.getElementById('messagePreview');
+                if (localStorage.getItem('adminSession') === 'true') {
+                    this.isAuthenticated = true;
+                    document.getElementById('loginContainer').classList.add('hidden');
+                    document.getElementById('adminDashboard').classList.remove('hidden');
+                    this.init();
+                }
 
-                customMessage.addEventListener('input', () => {
-                    messagePreview.textContent = customMessage.value || 'Sua mensagem aparecerá aqui...';
-                });
+                const customMessage = document.getElementById('customMessage');
+                if (customMessage) {
+                    customMessage.addEventListener('input', () => {
+                        const preview = document.getElementById('messagePreview');
+                        preview.textContent = customMessage.value || 'Sua mensagem aparecerá aqui...';
+                    });
+                }
             }
         }
 
-        // Iniciar
         const admin = new AdminDashboard();
     </script>
 </body>

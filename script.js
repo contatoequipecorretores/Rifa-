@@ -280,38 +280,50 @@ class RifaApp {
             .map(t => String(t.number).padStart(3, '0'))
             .join(', ');
 
-        const confirmationMessage = `
-🎰 NOVA RIFA RECEBIDA!
+        // MENSAGEM INTELIGENTE E PERSONALIZADA PARA O CLIENTE
+        const clientMessage = `
+🎰 *RIFA SOLIDÁRIA* 🎰
 
-Cliente: ${buyer.name}
-Telefone: ${buyer.phone}
-${buyer.email ? `E-mail: ${buyer.email}` : ''}
+Olá ${buyer.name}! 👋
 
-Números Reservados: ${ticketList}
-Total de Números: ${this.cart.length}
-Data/Hora: ${sale.date}
-ID: ${sale.id}
+Tudo bem? 😊
 
-Próximos passos:
-1. Acordar a forma de pagamento
-2. Confirmar reserva
-3. Aguardar resultado do sorteio
+Sua reserva na rifa foi *confirmada com sucesso*! 🎉
+
+*📌 SEUS NÚMEROS:*
+${ticketList}
+
+*Quantidade: ${this.cart.length} número(s)*
+
+✨ Agora é só aguardar o sorteio e torcer para a sorte estar do seu lado! 
+
+*Boa sorte!* 🍀🍀🍀
+
+Qualquer dúvida ou problema, é só chamar! 💬
+
+Muito obrigado! 🙏
+        `.trim();
+
+        // MENSAGEM INTELIGENTE PARA O ADMIN
+        const adminMessage = `
+🎯 *NOVA RIFA RECEBIDA!* 🎯
+
+*Cliente:* ${buyer.name}
+*Telefone:* ${buyer.phone}
+${buyer.email ? `*E-mail:* ${buyer.email}` : ''}
+
+*Números Reservados:* ${ticketList}
+*Quantidade:* ${this.cart.length}
+
+*Data/Hora:* ${sale.date}
+*ID:* ${sale.id}
+
+_Próximos passos: Confirmar pagamento e status_
         `.trim();
 
         // Enviar para seu WhatsApp (admin)
-        const adminMessage = encodeURIComponent(confirmationMessage);
-        const adminLink = `https://wa.me/${config.whatsappAdmin}?text=${adminMessage}`;
-
-        // Mensagem para o cliente
-        const clientMessage = `
-Obrigado pela sua participação! 🎉
-
-Seus números: ${ticketList}
-Quantidade: ${this.cart.length}
-
-Entramos em contato em breve para confirmar o pagamento.
-Boa sorte! 🍀
-        `.trim();
+        const adminMessageEncoded = encodeURIComponent(adminMessage);
+        const adminLink = `https://wa.me/${config.whatsappAdmin}?text=${adminMessageEncoded}`;
 
         const clientMessageEncoded = encodeURIComponent(clientMessage);
         const clientLink = `https://wa.me/55${buyer.phone.replace(/\D/g, '')}?text=${clientMessageEncoded}`;
