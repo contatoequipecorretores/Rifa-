@@ -501,4 +501,21 @@ document.addEventListener('keydown', (e) => {
     if (e.ctrlKey && e.shiftKey && e.key === 'E') {
         app.exportData();
     }
+    // Ctrl+Shift+Z para zerar dados (confirmação dupla)
+    if (e.ctrlKey && e.shiftKey && e.key === 'Z') {
+        console.log('💡 Dica: Pressione Ctrl+Shift+Z novamente em 3 segundos para zerar tudo');
+        app._zeroConfirmStage1();
+    }
 });
+
+// Adicionar método para confirmar zeramento de dados
+RifaApp.prototype._zeroConfirmStage1 = function() {
+    if (!this._zeroConfirmTime) {
+        this._zeroConfirmTime = Date.now();
+        setTimeout(() => {
+            this._zeroConfirmTime = null;
+        }, 3000);
+    } else if (Date.now() - this._zeroConfirmTime < 3000) {
+        this.clearAllReservations();
+    }
+};

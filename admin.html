@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin - Rifa</title>
+    <link rel="icon" type="image/jpeg" href="images (34).jpeg">
     <style>
         * {
             margin: 0;
@@ -524,8 +525,14 @@
                 </div>
                 
                 <div class="form-group">
-                    <button class="btn btn-success" onclick="admin.exportAllData()" style="width: 100%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+                    <button class="btn btn-success" onclick="admin.exportAllData()" style="width: 100%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; margin-bottom: 10px;">
                         📥 Exportar Dados (Backup)
+                    </button>
+                </div>
+
+                <div class="form-group">
+                    <button class="btn btn-success" onclick="admin.forceRefresh()" style="width: 100%; background: linear-gradient(135deg, #51cf66 0%, #40c057 100%); color: white;">
+                        🔄 Forçar Atualização
                     </button>
                 </div>
             </div>
@@ -996,6 +1003,13 @@ Qualquer dúvida, é só chamar! 💬
                 URL.revokeObjectURL(url);
                 
                 this.notify('✅ Backup salvo com sucesso!');
+            }
+
+            // Forçar atualização dos dados
+            forceRefresh() {
+                this.loadData();
+                this.render();
+                this.notify('✅ Dados atualizados com sucesso!');
             }
         }
 

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rifa Lavadora Tanquinho Newmaq 10Kg - R$ 15</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/jpeg" href="images (34).jpeg">
 </head>
 <body>
     <div class="container">
@@ -132,5 +133,32 @@
     <div id="notification" class="notification" style="display: none;"></div>
 
     <script src="script.js"></script>
+    <script>
+        // Função para limpar dados antigos ao carregar a página
+        window.addEventListener('load', () => {
+            // Verificar se há dados muito antigos (mais de 1 hora)
+            const lastClean = localStorage.getItem('lastDataClean');
+            const now = Date.now();
+            
+            if (!lastClean || (now - parseInt(lastClean)) > 3600000) {
+                // Se for primeira vez ou mais de 1 hora, sugerir limpeza
+                // Mas não fazer automaticamente, apenas zerar o progresso visual
+                const rifaData = localStorage.getItem('rifaData');
+                if (rifaData) {
+                    try {
+                        const data = JSON.parse(rifaData);
+                        // Se houver dados antigos, manter mas avisar no console
+                        const sold = data.tickets ? data.tickets.filter(t => t[1].sold).length : 0;
+                        if (sold > 0 && sold <= 10) {
+                            console.log('💡 Dica: Se esses dados forem antigos, vá para o Admin e clique em "Zerar TODAS as Reservas"');
+                        }
+                    } catch (e) {
+                        // Ignorar erros
+                    }
+                }
+                localStorage.setItem('lastDataClean', now.toString());
+            }
+        });
+    </script>
 </body>
 </html>
