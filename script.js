@@ -161,7 +161,7 @@ class RifaApp {
                     <div class="cart-item-info">
                         <div class="cart-item-label">Número ${String(item.number).padStart(3, '0')}</div>
                     </div>
-                    <button class="cart-item-remove" onclick="app.removeFromCart(${item.number})">×</button>
+                    <button class="cart-item-remove" onclick="app.removeFromCart(${item.number}); app.updateCart(); app.renderTickets();">×</button>
                 </div>
             `).join('');
 
@@ -172,7 +172,7 @@ class RifaApp {
                 .map(item => `
                     <div class="badge">
                         ${String(item.number).padStart(3, '0')}
-                        <span class="remove" onclick="app.removeFromCart(${item.number})">×</span>
+                        <span class="remove" onclick="app.removeFromCart(${item.number}); app.updateCart(); app.renderTickets();">×</span>
                     </div>
                 `).join('');
         }
