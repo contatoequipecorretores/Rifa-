@@ -242,7 +242,7 @@ body {
 /* TICKETS GRID */
 .tickets-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(65px, 1fr));
+    grid-template-columns: repeat(10, 1fr);
     gap: 10px;
     margin-bottom: 40px;
 }
@@ -709,7 +709,8 @@ body {
     }
 
     .tickets-grid {
-        grid-template-columns: repeat(auto-fit, minmax(55px, 1fr));
+        grid-template-columns: repeat(5, 1fr);
+        gap: 8px;
     }
 
     .ticket-btn {
@@ -735,5 +736,173 @@ body {
         right: 15px;
         left: 15px;
         max-width: none;
+    }
+}
+
+/* Tablets */
+@media (max-width: 1024px) and (min-width: 769px) {
+    .tickets-grid {
+        grid-template-columns: repeat(8, 1fr);
+    }
+
+    .ticket-btn {
+        padding: 14px;
+        font-size: 1em;
+    }
+}
+
+/* Mobile pequeno */
+@media (max-width: 480px) {
+    body {
+        padding: 10px;
+    }
+
+    .container {
+        border-radius: 15px;
+    }
+
+    .header {
+        padding: 20px 15px;
+    }
+
+    .header h1 {
+        font-size: 1.8em;
+    }
+
+    .subtitle {
+        font-size: 1.1em;
+    }
+
+    .tickets-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 6px;
+    }
+
+    .ticket-btn {
+        padding: 10px;
+        font-size: 0.9em;
+        border-radius: 8px;
+    }
+
+    .section-header h2 {
+        font-size: 1.3em;
+    }
+
+    .prize-section {
+        padding: 20px;
+    }
+
+    .prize-card {
+        padding: 15px;
+    }
+
+    .cart-section {
+        padding: 20px;
+    }
+
+    .modal-content {
+        width: 95%;
+        padding: 20px;
+    }
+}
+
+/* Extra pequeno */
+@media (max-width: 360px) {
+    .tickets-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 5px;
+    }
+
+    .ticket-btn {
+        padding: 8px;
+        font-size: 0.8em;
+    }
+
+    .header h1 {
+        font-size: 1.5em;
+    }
+}
+
+/* Tablets */
+@media (max-width: 1024px) and (min-width: 769px) {
+    .tickets-grid {
+        grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+    }
+
+    .ticket-btn {
+        padding: 14px;
+        font-size: 1em;
+    }
+}
+
+/* Mobile pequeno */
+@media (max-width: 480px) {
+    body {
+        padding: 10px;
+    }
+
+    .container {
+        border-radius: 15px;
+    }
+
+    .header {
+        padding: 20px 15px;
+    }
+
+    .header h1 {
+        font-size: 1.8em;
+    }
+
+    .subtitle {
+        font-size: 1.1em;
+    }
+
+    .tickets-grid {
+        grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+        gap: 8px;
+    }
+
+    .ticket-btn {
+        padding: 10px;
+        font-size: 0.9em;
+        border-radius: 8px;
+    }
+
+    .section-header h2 {
+        font-size: 1.3em;
+    }
+
+    .prize-section {
+        padding: 20px;
+    }
+
+    .prize-card {
+        padding: 15px;
+    }
+
+    .cart-section {
+        padding: 20px;
+    }
+
+    .modal-content {
+        width: 95%;
+        padding: 20px;
+    }
+}
+
+/* Extra pequeno */
+@media (max-width: 360px) {
+    .tickets-grid {
+        grid-template-columns: repeat(auto-fit, minmax(45px, 1fr));
+        gap: 6px;
+    }
+
+    .ticket-btn {
+        padding: 8px;
+        font-size: 0.8em;
+    }
+
+    .header h1 {
+        font-size: 1.5em;
     }
 }
