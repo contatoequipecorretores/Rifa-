@@ -173,9 +173,19 @@ class RifaApp {
                         <div class="cart-item-number">R$ 15,00</div>
                     </div>
                     <div class="cart-item-price">R$ 15,00</div>
-                    <button class="cart-item-remove" onclick="app.removeFromCart(${item.number})">×</button>
+                    <button class="cart-item-remove" data-number="${item.number}">×</button>
                 </div>
             `).join('');
+
+            // Adicionar event listeners para os botões de remover
+            cartItems.querySelectorAll('.cart-item-remove').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const number = parseInt(e.target.dataset.number);
+                    this.removeFromCart(number);
+                    this.updateCart();
+                    this.renderTickets();
+                });
+            });
 
             // Atualizar badges
             const badgesContainer = document.getElementById('selectedBadges');
@@ -184,9 +194,19 @@ class RifaApp {
                 .map(item => `
                     <div class="badge">
                         ${String(item.number).padStart(3, '0')}
-                        <span class="remove" onclick="app.removeFromCart(${item.number})">×</span>
+                        <span class="remove" data-number="${item.number}">×</span>
                     </div>
                 `).join('');
+
+            // Adicionar event listeners para os badges de remover
+            badgesContainer.querySelectorAll('.remove').forEach(span => {
+                span.addEventListener('click', (e) => {
+                    const number = parseInt(e.target.dataset.number);
+                    this.removeFromCart(number);
+                    this.updateCart();
+                    this.renderTickets();
+                });
+            });
 
             // Atualizar resumo
             this.updatePricing();
@@ -440,6 +460,18 @@ Forma de Pagamento: ${buyer.payment === 'pix' ? 'PIX' : 'Acordar via WhatsApp'}
     }
 
     setupEventListeners() {
+        // Event listeners para botões do carrinho
+        const clearCartBtn = document.getElementById('clearCartBtn');
+        const sendWhatsAppBtn = document.getElementById('sendWhatsAppBtn');
+        
+        if (clearCartBtn) {
+            clearCartBtn.addEventListener('click', () => this.clearCart());
+        }
+        
+        if (sendWhatsAppBtn) {
+            sendWhatsAppBtn.addEventListener('click', () => this.sendViaWhatsApp());
+        }
+
         // Fechar modal ao clicar fora
         window.addEventListener('click', (e) => {
             const modal = document.getElementById('checkoutModal');
