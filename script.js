@@ -52,7 +52,9 @@ class RifaApp {
         if (saved) {
             try {
                 const data = JSON.parse(saved);
-                this.tickets = new Map(data.tickets);
+                // Remover número 0 dos tickets salvos (dados antigos)
+                const filteredTickets = data.tickets.filter(([key]) => key !== 0);
+                this.tickets = new Map(filteredTickets);
                 this.sales = data.sales || [];
             } catch (e) {
                 console.log('Erro ao carregar dados, inicializando novo');
@@ -88,6 +90,9 @@ class RifaApp {
         grid.innerHTML = '';
 
         this.tickets.forEach((ticket, number) => {
+            // Não renderizar o número 0
+            if (number === 0) return;
+            
             const btn = document.createElement('button');
             btn.className = 'ticket-btn';
             btn.textContent = String(number).padStart(3, '0');
@@ -111,6 +116,9 @@ class RifaApp {
     }
 
     toggleTicket(number) {
+        // Não permitir número 0
+        if (number === 0) return;
+        
         const ticket = this.tickets.get(number);
         
         if (ticket.sold) return; // Não permitir selecionar vendidos
