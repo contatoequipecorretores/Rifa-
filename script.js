@@ -68,13 +68,7 @@ class RifaApp {
                     sold: false,
                     buyer: null,
                     email: null,
-        // Ordenar números numericamente (não alfabeticamente)
-        const sortedNumbers = Array.from(this.tickets.keys()).sort((a, b) => a - b);
-        
-        sortedNumbers.forEach((number) => {
-            const ticket = this.tickets.get(number);
-            if (!ticket) return; // Pular se não existir
-            
+                    phone: null,
                     date: null
                 });
             }
