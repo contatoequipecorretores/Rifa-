@@ -1,32 +1,10 @@
 // Configuração da aplicação
 const config = {
     totalTickets: 100,
-    whatsappAdmin: '5515991818457' // Seu WhatsApp correto
+    ticketPrice: 15,
+    discountThreshold: 3, // A partir de 3 números
+    discountPercent: 5 // 5% de desconto
 };
-
-// Gerador Inteligente de Mensagens
-class MessageGenerator {
-    constructor() {
-        this.templates = [
-            (numbers, qty) => `Olá! 👋\n\nEstou interessado em participar da rifa! 🎰\n\nGostaria de reservar os números: ${numbers}\n\nTotal de números: ${qty}`,
-            (numbers, qty) => `Oi! 😊\n\nQuero garantir minha chance! Vou levar os números ${numbers} (${qty} no total).`,
-            (numbers, qty) => `Opa! Tenho sorte nessa! 🍀\n\nCom licença, gostaria desses números: ${numbers}\n\n(${qty} números no total)`,
-            (numbers, qty) => `Testando a sorte! ✨\n\nInteressado em: ${numbers}\n\nQuantidade: ${qty}`,
-            (numbers, qty) => `Vamo lá! 🎯\n\nQuero esses números: ${numbers}\n\nTotal: ${qty} entrada(s)`,
-            (numbers, qty) => `E aí! Tudo certo? 👍\n\nGostaria de reservar: ${numbers}\n\nSão ${qty} número(s)`,
-            (numbers, qty) => `Pode crer! 💪\n\nVou querer esses números aí: ${numbers}\n\n(${qty} ao todo)`,
-            (numbers, qty) => `Boa sorte tem que ter! 🎲\n\nReservo esses aqui: ${numbers}\n\nTotal de ${qty}`,
-            (numbers, qty) => `Deixa eu tentar! 🍀\n\nOs números que quero são: ${numbers}\n\nQuantidade: ${qty}`,
-            (numbers, qty) => `Bora nessa! 🚀\n\nInteressado em: ${numbers}\n\n(${qty} números no total)`,
-        ];
-    }
-
-    generate(numbers, quantity) {
-        const randomIndex = Math.floor(Math.random() * this.templates.length);
-        const template = this.templates[randomIndex];
-        return template(numbers, quantity);
-    }
-}
 
 // Classe principal da aplicação
 class RifaApp {
@@ -34,7 +12,6 @@ class RifaApp {
         this.tickets = new Map(); // Mapa de números da rifa
         this.cart = []; // Carrinho de compras
         this.sales = []; // Histórico de vendas
-        this.messageGenerator = new MessageGenerator();
         
         this.init();
         this.loadFromStorage();
@@ -46,7 +23,7 @@ class RifaApp {
     }
 
     init() {
-        // Inicializar todos os 100 números (1 a 100) - 100% LIVRES
+        // Inicializar todos os 100 números (garanta que TODOS apareçam)
         for (let i = 1; i <= config.totalTickets; i++) {
             this.tickets.set(i, {
                 number: i,
@@ -54,8 +31,18 @@ class RifaApp {
                 buyer: null,
                 email: null,
                 phone: null,
-                date: null,
-                paymentStatus: 'pendente' // 'pendente', 'confirmado', 'cancelado'
+                date: null
+            });
+        }
+        // Verificação final - garantir que o número 100 existe
+        if (!this.tickets.has(100)) {
+            this.tickets.set(100, {
+                number: 100,
+                sold: false,
+                buyer: null,
+                email: null,
+                phone: null,
+                date: null
             });
         }
     }
@@ -65,18 +52,31 @@ class RifaApp {
         if (saved) {
             try {
                 const data = JSON.parse(saved);
-                // Remover número 0 dos tickets salvos (dados antigos)
-                const filteredTickets = data.tickets.filter(([key]) => key !== 0);
-                this.tickets = new Map(filteredTickets);
-                
-                // Remover número 0 das vendas
-                this.sales = (data.sales || []).map(sale => ({
-                    ...sale,
-                    tickets: sale.tickets.filter(t => t.number !== 0)
-                })).filter(sale => sale.tickets.length > 0);
+                this.tickets = new Map(data.tickets);
+                this.sales = data.sales || [];
             } catch (e) {
-                console.log('Dados corrompidos, inicializando novo');
+                console.log('Erro ao carregar dados, inicializando novo');
                 this.init();
+                return;
+            }
+        }
+        // Garantir que TODOS os números de 1 a 100 existem após carregar
+        for (let i = 1; i <= config.totalTickets; i++) {
+            if (!this.tickets.has(i)) {
+                this.tickets.set(i, {
+                    number: i,
+                    sold: false,
+                    buyer: null,
+                    email: null,
+        // Ordenar números numericamente (não alfabeticamente)
+        const sortedNumbers = Array.from(this.tickets.keys()).sort((a, b) => a - b);
+        
+        sortedNumbers.forEach((number) => {
+            const ticket = this.tickets.get(number);
+            if (!ticket) return; // Pular se não existir
+            
+                    date: null
+                });
             }
         }
     }
@@ -93,19 +93,15 @@ class RifaApp {
         const grid = document.getElementById('ticketsGrid');
         grid.innerHTML = '';
 
-        // Ordenar números numericamente (não lexicograficamente)
-        const sortedNumbers = Array.from(this.tickets.keys()).sort((a, b) => a - b);
-        
-        sortedNumbers.forEach((number) => {
-            const ticket = this.tickets.get(number);
+        this.tickets.forEach((ticket, number) => {
             const btn = document.createElement('button');
             btn.className = 'ticket-btn';
-            btn.textContent = String(number).padStart(3, '0'); // 001, 002, 003...
+            btn.textContent = String(number).padStart(3, '0');
             
             if (ticket.sold) {
                 btn.classList.add('sold');
                 btn.disabled = true;
-                btn.title = `Reservado por: ${ticket.buyer}`;
+                btn.title = `Vendido para: ${ticket.buyer}`;
             } else if (this.cart.some(t => t.number === number)) {
                 btn.classList.add('selected');
                 btn.classList.add('available');
@@ -121,9 +117,6 @@ class RifaApp {
     }
 
     toggleTicket(number) {
-        // Não permitir número 0
-        if (number === 0) return;
-        
         const ticket = this.tickets.get(number);
         
         if (ticket.sold) return; // Não permitir selecionar vendidos
@@ -143,7 +136,8 @@ class RifaApp {
     addToCart(number) {
         const ticket = this.tickets.get(number);
         this.cart.push({
-            number: number
+            number: number,
+            price: config.ticketPrice
         });
         
         this.showNotification(`✓ Número ${String(number).padStart(3, '0')} adicionado!`);
@@ -174,8 +168,10 @@ class RifaApp {
                 <div class="cart-item">
                     <div class="cart-item-info">
                         <div class="cart-item-label">Número ${String(item.number).padStart(3, '0')}</div>
+                        <div class="cart-item-number">R$ 15,00</div>
                     </div>
-                    <button class="cart-item-remove" onclick="app.removeFromCart(${item.number}); app.updateCart(); app.renderTickets();">×</button>
+                    <div class="cart-item-price">R$ 15,00</div>
+                    <button class="cart-item-remove" onclick="app.removeFromCart(${item.number})">×</button>
                 </div>
             `).join('');
 
@@ -186,10 +182,34 @@ class RifaApp {
                 .map(item => `
                     <div class="badge">
                         ${String(item.number).padStart(3, '0')}
-                        <span class="remove" onclick="app.removeFromCart(${item.number}); app.updateCart(); app.renderTickets();">×</span>
+                        <span class="remove" onclick="app.removeFromCart(${item.number})">×</span>
                     </div>
                 `).join('');
+
+            // Atualizar resumo
+            this.updatePricing();
         }
+    }
+
+    updatePricing() {
+        const subtotal = this.cart.length * config.ticketPrice;
+        const discount = this.cart.length >= config.discountThreshold 
+            ? (subtotal * config.discountPercent) / 100 
+            : 0;
+        const total = subtotal - discount;
+
+        document.getElementById('subtotal').textContent = 
+            this.formatCurrency(subtotal);
+        document.getElementById('discount').textContent = 
+            this.formatCurrency(discount);
+        document.getElementById('total').textContent = 
+            this.formatCurrency(total);
+
+        // Atualizar dados do checkout
+        document.getElementById('checkoutTickets').textContent = 
+            `${this.cart.length} número${this.cart.length > 1 ? 's' : ''}`;
+        document.getElementById('checkoutTotal').textContent = 
+            this.formatCurrency(total);
     }
 
     updateStats() {
@@ -209,96 +229,125 @@ class RifaApp {
     }
 
     updateRealTime() {
-        // Atualização em tempo real - sincroniza com localStorage
+        // Atualização em tempo real - sincroniza com localStorage de outros abas/dispositivos
         const saved = localStorage.getItem('rifaData');
         if (saved) {
             try {
                 const data = JSON.parse(saved);
-                // Verificar se houve mudanças (vendas de outro usuário)
                 const newTickets = new Map(data.tickets);
                 let changed = false;
                 
+                // Verificar se algum número mudou de status
                 newTickets.forEach((ticket, number) => {
                     const currentTicket = this.tickets.get(number);
                     if (currentTicket && currentTicket.sold !== ticket.sold) {
-                        changed = true;
                         this.tickets.set(number, ticket);
+                        changed = true;
                     }
                 });
+                
+                // Garantir que TODOS os números existem (especialmente o 100)
+                for (let i = 1; i <= config.totalTickets; i++) {
+                    if (!this.tickets.has(i)) {
+                        this.tickets.set(i, newTickets.get(i) || {
+                            number: i,
+                            sold: false,
+                            buyer: null,
+                            email: null,
+                            phone: null,
+                            date: null
+                        });
+                        changed = true;
+                    }
+                }
                 
                 if (changed) {
                     this.renderTickets();
                 }
+                
+                // Atualizar histórico de vendas
+                if (data.sales && JSON.stringify(data.sales) !== JSON.stringify(this.sales)) {
+                    this.sales = data.sales;
+                }
             } catch (e) {
-                console.log('Erro ao sincronizar dados');
+                console.log('Erro ao sincronizar', e);
             }
         }
     }
 
     clearCart() {
-        if (confirm('Tem certeza que deseja limpar os números?')) {
+        if (confirm('Tem certeza que deseja limpar o carrinho?')) {
             this.cart = [];
             this.renderTickets();
             this.updateCart();
-            this.showNotification('Números removidos');
+            this.showNotification('Carrinho limpo');
         }
     }
 
-    sendViaWhatsApp() {
+    checkout() {
         if (this.cart.length === 0) {
-            this.showNotification('Selecione pelo menos um número!', true);
+            this.showNotification('Adicione números ao carrinho!', true);
             return;
         }
 
-        // Mostrar modal com dados
-        document.getElementById('dataModal').style.display = 'block';
-        
-        // Mostrar números no modal
-        const numbersText = this.cart
-            .sort((a, b) => a.number - b.number)
-            .map(t => String(t.number).padStart(3, '0'))
-            .join(', ');
-        
-        document.getElementById('modalNumbers').textContent = 'Números: ' + numbersText;
-        
-        // Limpar formulário
-        document.getElementById('name').value = '';
-        document.getElementById('phone').value = '';
-        document.getElementById('email').value = '';
+        document.getElementById('checkoutModal').style.display = 'block';
     }
 
-    submitData() {
+    closeModal() {
+        document.getElementById('checkoutModal').style.display = 'none';
+    }
+
+    processPayment() {
         const name = document.getElementById('name').value.trim();
-        const phone = document.getElementById('phone').value.trim();
         const email = document.getElementById('email').value.trim();
+        const phone = document.getElementById('phone').value.trim();
+        const cpf = document.getElementById('cpf').value.trim();
+        const payment = document.querySelector('input[name="payment"]:checked').value;
 
         if (!name) {
-            this.showNotification('Preencha seu nome!', true);
+            this.showNotification('Preencha o nome!', true);
+            return;
+        }
+
+        if (!email) {
+            this.showNotification('Preencha o e-mail!', true);
             return;
         }
 
         if (!phone) {
-            this.showNotification('Preencha seu WhatsApp!', true);
+            this.showNotification('Preencha o WhatsApp!', true);
             return;
         }
 
         // Processar compra
         this.finalizePurchase({
             name,
+            email,
             phone,
-            email
+            cpf,
+            payment
         });
     }
 
     finalizePurchase(buyer) {
+        const subtotal = this.cart.length * config.ticketPrice;
+        const discount = this.cart.length >= config.discountThreshold 
+            ? (subtotal * config.discountPercent) / 100 
+            : 0;
+        const total = subtotal - discount;
+
         const sale = {
             id: 'RIFA-' + Date.now(),
             date: new Date().toLocaleString('pt-BR'),
             buyer: buyer.name,
             email: buyer.email,
             phone: buyer.phone,
+            cpf: buyer.cpf,
+            payment: buyer.payment,
             tickets: [...this.cart],
-            paymentStatus: 'pendente' // Começa como pendente até admin confirmar
+            subtotal,
+            discount,
+            total
         };
 
         // Marcar números como vendidos
@@ -309,95 +358,69 @@ class RifaApp {
             ticket.email = buyer.email;
             ticket.phone = buyer.phone;
             ticket.date = new Date().toLocaleString('pt-BR');
-            ticket.paymentStatus = 'pendente'; // Aguardando confirmação
         });
 
         // Salvar venda
         this.sales.push(sale);
         this.saveToStorage();
 
-        // Preparar lista de números
+        // Preparar mensagem de confirmação
         const ticketList = this.cart
             .sort((a, b) => a.number - b.number)
             .map(t => String(t.number).padStart(3, '0'))
             .join(', ');
 
-        // GERAR MENSAGEM INTELIGENTE AUTOMATICAMENTE
-        const intelligentMessage = this.messageGenerator.generate(ticketList, this.cart.length);
+        const confirmationMessage = `
+🎰 COMPRA CONFIRMADA!
 
-        // MENSAGEM PARA O CLIENTE (enviada automaticamente pelo sistema)
-        const clientMessage = `
-${intelligentMessage}
+ID da Compra: ${sale.id}
+Comprador: ${buyer.name}
+Números: ${ticketList}
+Total: ${this.formatCurrency(total)}
+Forma de Pagamento: ${buyer.payment === 'pix' ? 'PIX' : 'Acordar via WhatsApp'}
 
----
-
-*Dados do Cliente:*
-Nome: ${buyer.name}
-Telefone: ${buyer.phone}
-
-*Status:* Aguardando confirmação de pagamento ⏳
+📧 Verifique seu e-mail para mais detalhes.
+💬 Você também receberá uma mensagem no WhatsApp.
         `.trim();
 
-        // MENSAGEM INTELIGENTE PARA O ADMIN
-        const adminMessage = `
-🎯 *NOVA RIFA RECEBIDA!* 🎯
-
-*Cliente:* ${buyer.name}
-*Telefone:* ${buyer.phone}
-${buyer.email ? `*E-mail:* ${buyer.email}` : ''}
-
-*Números Reservados:* ${ticketList}
-*Quantidade:* ${this.cart.length}
-
-*Data/Hora:* ${sale.date}
-*ID:* ${sale.id}
-
-💬 *Mensagem do Cliente:*
-${intelligentMessage}
-
-_Próximos passos: Confirmar pagamento e status_
-        `.trim();
-
-        // Enviar para seu WhatsApp (admin)
-        const adminMessageEncoded = encodeURIComponent(adminMessage);
-        const adminLink = `https://wa.me/${config.whatsappAdmin}?text=${adminMessageEncoded}`;
-
-        const clientMessageEncoded = encodeURIComponent(clientMessage);
-        const clientLink = `https://wa.me/55${buyer.phone.replace(/\D/g, '')}?text=${clientMessageEncoded}`;
-
-        // Salvar links
-        this.lastAdminLink = adminLink;
-        this.lastClientLink = clientLink;
+        // Enviar para WhatsApp (simulado)
+        if (buyer.payment === 'whatsapp') {
+            const whatsappMessage = encodeURIComponent(
+                `Oi ${buyer.name}! 👋\n\n` +
+                `Obrigado pela compra! 🎉\n\n` +
+                confirmationMessage.replace(/\n/g, '%0A')
+            );
+            // window.open(`https://wa.me/55${buyer.phone.replace(/\D/g, '')}?text=${whatsappMessage}`);
+        }
 
         // Limpar formulário e carrinho
-        this.resetForm();
+        this.resetCheckoutForm();
         this.cart = [];
         this.renderTickets();
         this.updateCart();
         this.closeModal();
 
-        // Abrir mensagens no WhatsApp
-        // 1º Notificar admin
-        window.open(adminLink, '_blank');
-        
-        // 2º Enviar confirmação ao cliente
-        setTimeout(() => {
-            window.open(clientLink, '_blank');
-        }, 1000);
+        // Mostrar confirmação
+        alert(confirmationMessage);
+        this.showNotification('✓ Compra realizada com sucesso!');
 
-        // Mostrar confirmação na tela
-        this.showNotification('✓ Pedido enviado! Verifique seu WhatsApp', false);
-        alert(`✅ Pedido Confirmado!\n\nNúmeros: ${ticketList}\nQtd: ${this.cart.length}\n\nVocê e o admin receberão mensagens no WhatsApp.`);
+        // Log da venda
+        console.log('Venda registrada:', sale);
     }
 
-    resetForm() {
+    resetCheckoutForm() {
         document.getElementById('name').value = '';
         document.getElementById('email').value = '';
         document.getElementById('phone').value = '';
+        document.getElementById('cpf').value = '';
+        document.querySelector('input[name="payment"][value="pix"]').checked = true;
     }
 
-    closeModal() {
-        document.getElementById('dataModal').style.display = 'none';
+    formatCurrency(value) {
+        return new Intl.NumberFormat('pt-BR', {
+            style: 'currency',
+            currency: 'BRL'
+        }).format(value);
     }
 
     showNotification(message, isError = false) {
@@ -417,36 +440,63 @@ _Próximos passos: Confirmar pagamento e status_
     setupEventListeners() {
         // Fechar modal ao clicar fora
         window.addEventListener('click', (e) => {
-            const modal = document.getElementById('dataModal');
+            const modal = document.getElementById('checkoutModal');
             if (e.target === modal) {
                 this.closeModal();
             }
         });
 
+        // 🔴 SINCRONIZAÇÃO EM TEMPO REAL - OUVE MUDANÇAS NO LOCALSTORAGE
+        window.addEventListener('storage', (e) => {
+            if (e.key === 'rifaData') {
+                console.log('📱 Sincronização detectada de outro dispositivo/aba');
+                this.loadFromStorage();
+                this.renderTickets();
+                this.updateStats();
+            }
+        });
+
         // Formatação de telefone
         const phoneInput = document.getElementById('phone');
-        if (phoneInput) {
-            phoneInput.addEventListener('input', (e) => {
-                let value = e.target.value.replace(/\D/g, '');
-                if (value.length > 0) {
-                    if (value.length <= 2) {
-                        value = `(${value}`;
-                    } else if (value.length <= 7) {
-                        value = `(${value.slice(0, 2)}) ${value.slice(2)}`;
-                    } else {
-                        value = `(${value.slice(0, 2)}) ${value.slice(2, 7)}-${value.slice(7, 11)}`;
-                    }
+        phoneInput.addEventListener('input', (e) => {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length > 0) {
+                if (value.length <= 2) {
+                    value = `(${value}`;
+                } else if (value.length <= 7) {
+                    value = `(${value.slice(0, 2)}) ${value.slice(2)}`;
+                } else {
+                    value = `(${value.slice(0, 2)}) ${value.slice(2, 7)}-${value.slice(7, 11)}`;
                 }
-                e.target.value = value;
-            });
-        }
+            }
+            e.target.value = value;
+        });
+
+        // Formatação de CPF
+        const cpfInput = document.getElementById('cpf');
+        cpfInput.addEventListener('input', (e) => {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length > 0) {
+                if (value.length <= 3) {
+                    value = value;
+                } else if (value.length <= 6) {
+                    value = `${value.slice(0, 3)}.${value.slice(3)}`;
+                } else if (value.length <= 9) {
+                    value = `${value.slice(0, 3)}.${value.slice(3, 6)}.${value.slice(6)}`;
+                } else {
+                    value = `${value.slice(0, 3)}.${value.slice(3, 6)}.${value.slice(6, 9)}-${value.slice(9, 11)}`;
+                }
+            }
+            e.target.value = value;
+        });
     }
 
     // Método para gerar relatório de vendas (para admin)
     generateSalesReport() {
         console.log('=== RELATÓRIO DE VENDAS ===');
-        console.log(`Total de reservas: ${this.sales.length}`);
-        console.log(`Números reservados: ${Array.from(this.tickets.values()).filter(t => t.sold).length}/100`);
+        console.log(`Total de vendas: ${this.sales.length}`);
+        console.log(`Números vendidos: ${Array.from(this.tickets.values()).filter(t => t.sold).length}/100`);
+        console.log(`Faturamento: ${this.formatCurrency(this.sales.reduce((sum, s) => sum + s.total, 0))}`);
         console.table(this.sales);
     }
 
@@ -465,45 +515,29 @@ _Próximos passos: Confirmar pagamento e status_
         a.click();
         URL.revokeObjectURL(url);
     }
-
-    // Zerar todas as reservas
-    clearAllReservations() {
-        if (!confirm('⚠️ ATENÇÃO! Isso vai ZERAR TODAS as reservas e vendas!\n\nDeseja continuar?')) {
-            return;
-        }
-        
-        if (!confirm('Tem CERTEZA absoluta? Essa ação não pode ser desfeita!')) {
-            return;
-        }
-
-        // Limpar todos os tickets
-        for (let i = 1; i <= config.totalTickets; i++) {
-            this.tickets.set(i, {
-                number: i,
-                sold: false,
-                buyer: null,
-                email: null,
-                phone: null,
-                date: null,
-                paymentStatus: 'pendente'
-            });
-        }
-
-        // Limpar todas as vendas
-        this.sales = [];
-
-        // Salvar e renderizar
-        this.saveToStorage();
-        this.renderTickets();
-        this.updateStats();
-
-        console.log('✅ Todas as reservas foram zeradas!');
-        alert('✅ Reservas zeradas com sucesso!');
-    }
 }
 
 // Instanciar aplicação
 const app = new RifaApp();
+
+// Adicionar alguns dados de demonstração se for primeira vez
+window.addEventListener('load', () => {
+    // Simulação de vendas anteriores para demo
+    if (localStorage.getItem('rifaData') === null) {
+        // Vender alguns números para demo
+        const demoNumbers = [5, 12, 18, 23, 31, 42, 57, 64, 71, 88];
+        demoNumbers.forEach((num, idx) => {
+            const ticket = app.tickets.get(num);
+            ticket.sold = true;
+            ticket.buyer = `Cliente Demo ${idx + 1}`;
+            ticket.email = `cliente${idx + 1}@example.com`;
+            ticket.phone = '(11) 9999-9999';
+            ticket.date = new Date(Date.now() - Math.random() * 24 * 60 * 60 * 1000).toLocaleString('pt-BR');
+        });
+        app.saveToStorage();
+        app.renderTickets();
+    }
+});
 
 // Teclas de atalho para admin
 document.addEventListener('keydown', (e) => {
@@ -515,21 +549,4 @@ document.addEventListener('keydown', (e) => {
     if (e.ctrlKey && e.shiftKey && e.key === 'E') {
         app.exportData();
     }
-    // Ctrl+Shift+Z para zerar dados (confirmação dupla)
-    if (e.ctrlKey && e.shiftKey && e.key === 'Z') {
-        console.log('💡 Dica: Pressione Ctrl+Shift+Z novamente em 3 segundos para zerar tudo');
-        app._zeroConfirmStage1();
-    }
 });
-
-// Adicionar método para confirmar zeramento de dados
-RifaApp.prototype._zeroConfirmStage1 = function() {
-    if (!this._zeroConfirmTime) {
-        this._zeroConfirmTime = Date.now();
-        setTimeout(() => {
-            this._zeroConfirmTime = null;
-        }, 3000);
-    } else if (Date.now() - this._zeroConfirmTime < 3000) {
-        this.clearAllReservations();
-    }
-};
